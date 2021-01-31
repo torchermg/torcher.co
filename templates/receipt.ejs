@@ -1,0 +1,39 @@
+<style>
+	.order-table {
+		width: 100%;
+	}
+</style>
+<p>
+	Thanks for ordering from Torcher!
+</p>
+<p>
+	<% const receiptUrl = `${constants.ADDRESS}/receipt/${order.id}` -%>
+	You can download your purchased items at <a href="<%= receiptUrl %>"><%= receiptUrl %></a>.
+</p>
+
+<p>
+	Order items:
+</p>
+<table class="order-table">
+	<tbody>
+		<% for (const orderItem of order.orderItems) { -%>
+			<% const licenseUrl = `${constants.ADDRESS}/license/${orderItem.license.id}` -%>
+			<tr>
+				<td><%= orderItem.production.title %></td>
+				<td><a href="<%= licenseUrl %>"><%= orderItem.license.name %></a></td>
+				<td>$<%= (orderItem.price / 100).toFixed(2) %></td>
+			</tr>
+		<% } -%>
+	</tbody>
+</table>
+</p>
+
+<p>
+	Subtotal: $<%= (order.subtotal / 100).toFixed(2) %><br>
+	Discount: $<%= (order.discount / 100).toFixed(2) %><br>
+	Order total: $<%= (order.total / 100).toFixed(2) %>
+</p>
+
+<p>
+	Please do not reply to this email. Instead, get in touch with us at <a href="mailto:<%= constants.CONTACT_EMAIL %>"><%= constants.CONTACT_EMAIL %></a>
+</p>

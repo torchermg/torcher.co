@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   sodipodi:docname="plus.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 4.2828968 4.2873216"
+   height="16.204254"
+   width="16.187531">
+  <defs
+     id="defs2">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath400">
+      <path
+         d="m 1141.97,606.629 h 15 v -30.383 h -15 z"
+         id="path398" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     inkscape:window-maximized="1"
+     inkscape:window-y="700"
+     inkscape:window-x="4160"
+     inkscape:window-height="688"
+     inkscape:window-width="1268"
+     inkscape:snap-tangential="true"
+     inkscape:snap-perpendicular="true"
+     units="px"
+     showgrid="false"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="px"
+     inkscape:cy="64.173707"
+     inkscape:cx="122.15017"
+     inkscape:zoom="0.98994949"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base"
+     inkscape:document-rotation="0" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1"
+     transform="translate(-62.437255,-70.710292)">
+    <g
+       id="g394"
+       transform="matrix(0.35277332,0,0,-0.35277332,-340.92446,282.2727)">
+      <g
+         id="g396" />
+      <g
+         id="g408">
+        <g
+           clip-path="url(#clipPath400)"
+           id="g406">
+          <g
+             aria-label="+"
+             transform="matrix(1,0,0,-1,1141.9722,584.5864)"
+             id="text404"
+             style="font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25.686px;font-family:Arial;-inkscape-font-specification:ArialMT;writing-mode:lr-tb;fill:#ff2600;fill-opacity:1;fill-rule:nonzero;stroke:none">
+            <path
+               d="m 6.4340422,-2.9724522 v -5.0418811 h -5.004255 v -2.1070547 h 5.004255 v -5.004255 h 2.1321387 v 5.004255 h 5.0042551 v 2.1070547 H 8.5661809 v 5.0418811 z"
+               id="path3640" />
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

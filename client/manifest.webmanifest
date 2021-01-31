@@ -1,0 +1,8 @@
+{
+	"name": "Torcher",
+	"short_name": "Torcher",
+	"theme_color": "#ff0000",
+	"background_color": "#ffffff",
+	"display": "standalone"
+}
+

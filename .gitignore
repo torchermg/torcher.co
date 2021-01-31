@@ -2,6 +2,14 @@
 /.cache
 /.build
 /build/*
-/*.env
+/.env*
 /yarn-error.log
 /*.db
+
+assets/build/*
+assets/source/productions/*
+!assets/source/productions/.gitkeep
+assets/source/images/*
+!assets/source/images/.gitkeep
+assets/source/legal/*
+!assets/source/legal/.gitkeep

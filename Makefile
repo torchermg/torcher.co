@@ -5,7 +5,10 @@ torture-palace = torcher.co
 public = $(DIGITALOCEAN_PUBLIC_BUCKET)
 private = $(DIGITALOCEAN_PRIVATE_BUCKET)
 
-build:
+yarn:
+	yarn
+
+build: yarn
 	yarn build
 
 prepare-assets:

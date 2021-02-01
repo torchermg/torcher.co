@@ -19,7 +19,7 @@ module.exports = {
 			ref  : process.env.DEPLOY_REF,
 			repo : process.env.DEPLOY_REPO,
 			path : process.env.DEPLOY_PATH,
-			"pre-deploy-local": "",
+			"pre-deploy-local": `scp .env ${process.env.DEPLOY_USER}@${process.env.DEPLOY_HOST}:${process.env.DEPLOY_PATH}/current`,
 			"post-deploy" : "make && pm2 reload ecosystem.config.cjs && pm2 save",
 			"pre-setup": "",
 		}

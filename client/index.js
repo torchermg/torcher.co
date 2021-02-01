@@ -25,11 +25,10 @@ const cache = new InMemoryCache();
 const link = new HttpLink({
 	uri: `${process.env.GRAPHQL_ADDRESS}`
 });
-console.log("yee");
 
 const client = new ApolloClient({ cache, link, typeDefs });
 
-const foreground = "red";
+const foreground = "blue";
 const background = "white";
 const theme = {
 	font: "Public Sans",

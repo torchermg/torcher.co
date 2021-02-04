@@ -30,7 +30,7 @@ const formatError = (e) => {
 	return e;
 };
 
-const apollo = new ApolloServer({ schema, formatError });
+const apollo = new ApolloServer({ cors: true, schema, formatError });
 app.use(apollo.getMiddleware());
 
 (async () => {

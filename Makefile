@@ -19,6 +19,4 @@ upload: prepare-assets
 	s3cmd sync -r assets/build/private/ s3://$(private)/
 
 deploy: upload
-	yarn clean
-	yarn build
-	yarn run pm2 deploy
+	yarn run pm2 deploy ecosystem.config.cjs torcher update

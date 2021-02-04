@@ -1,7 +1,7 @@
 import apolloServerExpress from "apollo-server-express";
 import ApolloServer from "apollo-server";
 import "isomorphic-fetch";
-import {v4 as uuidv4} from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
 
 import { getSignedUrl } from "./s3.js";
@@ -11,7 +11,7 @@ import { charge } from "./braintree.js";
 import { checkName, checkEmail } from "./shared/validation.js";
 import { productionsById } from "./shared/productions.js";
 import { licensesById } from "./shared/licenses.js";
-import { sendReceipt } from "./mail.js";
+import { sendReceipt, validateEmail } from "./mail.js";
 
 import { byCode as promosByCode, isPromoActive } from "./promos.js";
 
@@ -38,45 +38,56 @@ export default {
 			return promo.discountRate;
 		},
 		order: async (parent, { orderId }) => {
-			try {
-				const order = await db.get("SELECT created_at, email, discount, subtotal, total FROM torcher_order WHERE id = ?", orderId);
-				if (!order) throw new NotFoundError("Order not found!");
-				const orderItems = await db.all("SELECT production_id, license_id, price FROM torcher_order_item WHERE order_id = ?", orderId);
-				return {
-					id: orderId,
-					email: order.email,
-					date: order.created_at,
-					discount: order.discount,
-					subtotal: order.subtotal,
-					total: order.total
-				};
-			} catch (e) {
-				throw e; // TODO
-			}
+			const order = await db.get(
+				"SELECT created_at, email, discount, subtotal, total FROM torcher_order WHERE id = ?",
+				orderId
+			);
+			if (!order) throw new NotFoundError("Order not found!");
+			const orderItems = await db.all(
+				"SELECT production_id, license_id, price FROM torcher_order_item WHERE order_id = ?",
+				orderId
+			);
+			return {
+				id: orderId,
+				email: order.email,
+				date: order.created_at,
+				discount: order.discount,
+				subtotal: order.subtotal,
+				total: order.total,
+			};
 		},
 	},
 	Order: {
 		user: async (parent) => {
-			const user = await db.get("SELECT name FROM torcher_user WHERE email = ?", parent.email);
+			const user = await db.get(
+				"SELECT name FROM torcher_user WHERE email = ?",
+				parent.email
+			);
 			return {
 				name: user.name,
 				email: parent.email,
 			};
 		},
 		orderItems: async (parent) => {
-			const orderItems = await db.all("SELECT production_id, license_id, price FROM torcher_order_item WHERE order_id = ?", parent.id);
-			return orderItems.map(orderItem => {
+			const orderItems = await db.all(
+				"SELECT production_id, license_id, price FROM torcher_order_item WHERE order_id = ?",
+				parent.id
+			);
+			return orderItems.map((orderItem) => {
 				const production = productionsById.get(orderItem.production_id);
-				const downloadUrl = getSignedUrl(`${production.basename}.zip`, `${production.title}.zip`);
+				const downloadUrl = getSignedUrl(
+					`${production.basename}.zip`,
+					`${production.title}.zip`
+				);
 
 				return {
 					productionId: orderItem.production_id,
 					licenseId: orderItem.license_id,
 					price: orderItem.price,
-					downloadUrl
-				}
+					downloadUrl,
+				};
 			});
-		}
+		},
 	},
 	Mutation: {
 		makeOrder: async (_, { request }) => {
@@ -96,12 +107,17 @@ export default {
 			const nameInvalid = checkName(name);
 			if (nameInvalid) throw new UserInputError(nameInvalid);
 
-			if (!cartItems) throw "Can't check out with an empty cart!";
+			if (!cartItems)
+				throw new UserInputError(
+					"Couldn't check out because your bag is empty."
+				);
 
 			for (const cartItem of cartItems) {
 				const production = productionsById.get(cartItem.productionId);
 				if (!production) {
-					throw new UserInputError(`Invalid production "${cartItem.productionId}"!`);
+					throw new UserInputError(
+						`Invalid production "${cartItem.productionId}"!`
+					);
 				}
 				const license = licensesById.get(cartItem.licenseId);
 				if (!license || license.price === 0) {
@@ -118,18 +134,33 @@ export default {
 			const total = subtotal - discount;
 
 			if (total <= 0) {
-				throw new UserInputError("Invalid order!");
-			};
+				throw new UserInputError("Your total is less than or equal to 0.");
+			}
+
+			if (!validateEmail(email)) {
+				throw new UserInputError("That email address is invalid.");
+			}
+
+			// time to charge!
 
 			const btResponse = await charge(nonce, total);
 
-			if (btResponse.chargePaymentMethod.transaction.status === "FAILED") {
-				throw new ApolloError("Transaction failed!");
+			const status = btResponse.chargePaymentMethod.transaction.status;
+			if (
+				!(
+					status === "SETTLED" ||
+					status === "SETTLING" ||
+					status === "SUBMITTED_FOR_SETTLEMENT" ||
+					status === "SETTLEMENT_PENDING"
+				)
+			) {
+				throw new ApolloError(
+					`Transaction failed. Please check your payment details and try again.`
+				);
 			}
 
-			console.log(JSON.stringify(btResponse));
-
-			const braintreeTransactionId = btResponse.chargePaymentMethod.transaction.id;
+			const braintreeTransactionId =
+				btResponse.chargePaymentMethod.transaction.id;
 			const order = {
 				email,
 				braintreeTransactionId,
@@ -137,7 +168,7 @@ export default {
 				subtotal,
 				total,
 				id: uuidv4(),
-				orderItems: cartItems.map(({licenseId, productionId}) => {
+				orderItems: cartItems.map(({ licenseId, productionId }) => {
 					const production = productionsById.get(productionId);
 					const license = licensesById.get(licenseId);
 					return {
@@ -148,7 +179,6 @@ export default {
 					};
 				}),
 			};
-
 
 			await db.run(
 				`
@@ -172,7 +202,7 @@ export default {
 				{
 					":id": order.id,
 					":email": order.email,
-					":braintreeTransactionId": order.braintreeTransactionId, // TODO
+					":braintreeTransactionId": order.braintreeTransactionId,
 					":discount": order.discount,
 					":subtotal": order.subtotal,
 					":total": order.total,
@@ -198,13 +228,15 @@ export default {
 				})
 			);
 
-			console.log("we just done did a order!");
 			try {
 				await sendReceipt(order);
-			} catch (e) {
-				console.error(e);
-				return;
+			} catch {
+				console.error(`failed to send receipt to ${email}!`);
 			}
+
+			console.log(
+				`processed order ${order.id} worth ${order.total} from ${name} <${email}>`
+			);
 
 			return order.id;
 		},

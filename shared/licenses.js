@@ -10,8 +10,8 @@ const rawLicenses = [
 		active: true,
 	},
 	{
-		id: "instrumental-1.0",
-		name: "Instrumental License",
+		id: "beat-1.0",
+		name: "Beat License",
 		version: "1.0",
 		price: 5000,
 		active: true,
@@ -33,5 +33,7 @@ const licenses = rawLicenses.map((rawLicense) => {
 	};
 });
 
-export const licensesById = new Map(licenses.map((license) => [license.id, license]));
+export const licensesById = new Map(
+	licenses.map((license) => [license.id, license])
+);
 export default licenses;

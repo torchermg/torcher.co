@@ -3,7 +3,9 @@ import styled from "styled-components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ScrollContainer } from "react-router-scroll-4";
 import _ from "lodash";
+import { Helmet } from "react-helmet";
 
+import constants from "/shared/constants";
 import Header from "/components/Header";
 import Home from "/pages/Home";
 import About from "/pages/About";
@@ -23,7 +25,7 @@ const Container = styled.div`
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	color: ${props => props.theme.foregroundLight};
+	color: ${(props) => props.theme.foregroundLight};
 	overflow-x: hidden;
 `;
 
@@ -47,9 +49,14 @@ const SvgDefs = styled.svg`
 	position: absolute;
 `;
 
-export default props => {
+export default (props) => {
 	return (
 		<Container>
+			<Helmet>
+				<title>Torcher</title>
+				<link rel="canonical" href={constants.ADDRESS} />
+				<meta name="description" content="Sample packs and beats." />
+			</Helmet>
 			<SvgDefs>
 				<defs>
 					<filter id="colorize">

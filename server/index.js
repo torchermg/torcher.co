@@ -16,11 +16,16 @@ const PORT = process.env.GRAPHQL_PORT || 3030;
 
 const app = express();
 
-const schema = makeExecutableSchema({typeDefs, resolvers});
+const schema = makeExecutableSchema({ typeDefs, resolvers });
 const formatError = (e) => {
 	console.error(e);
-	if (!(e.originalError instanceof ApolloError || e.originalError instanceof UserInputError)) {
-		return new Error("Internal server error");
+	if (
+		!(
+			e.originalError instanceof ApolloError ||
+			e.originalError instanceof UserInputError
+		)
+	) {
+		return new ApolloError("Internal server error");
 	}
 	return e;
 };

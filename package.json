@@ -2,7 +2,7 @@
 	"type": "module",
 	"dependencies": {
 		"@apollo/react-hooks": "^4.0.0",
-		"@babel/core": "^7.12.10",
+		"@babel/core": "^7.0.0-0",
 		"@babel/preset-env": "^7.12.11",
 		"@mdi/js": "^5.9.55",
 		"@mdi/react": "^1.4.0",
@@ -39,6 +39,8 @@
 		"polished": "^4.1.0",
 		"react": "^17.0.1",
 		"react-dom": "^17.0.1",
+		"react-helmet": "^6.1.0",
+		"react-imported-component": "^6.3.13",
 		"react-is": "^17.0.1",
 		"react-notify-toast": "^0.5.1",
 		"react-router-dom": "^5.2.0",
@@ -63,6 +65,17 @@
 	"devDependencies": {
 		"@babel/plugin-transform-runtime": "^7.12.10",
 		"@babel/preset-es2015": "^7.0.0-beta.53",
-		"babel-preset-env": "^1.7.0"
+		"babel-preset-env": "^1.7.0",
+		"husky": ">=4",
+		"lint-staged": ">=10",
+		"prettier": "^2.2.1"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"*.{js,css,md}": "prettier --write"
 	}
 }

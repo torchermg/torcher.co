@@ -6,21 +6,26 @@ import NotFound from "/pages/NotFound";
 import { ForegroundA, Loading } from "/components/common";
 
 const DangerContainer = styled.div`
-	h1, h2, h3, h4, h5, h6 {
-		font-family: ${props => props.theme.accentFont};
-		color: ${props => props.theme.foreground};
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: ${(props) => props.theme.accentFont};
+		color: ${(props) => props.theme.foreground};
 	}
-	strong {
-		color: ${props => props.theme.foreground};
-	}
+	// strong {
+	// 	color: ${(props) => props.theme.foreground};
+	// }
 	a {
 		${ForegroundA.componentStyle.baseStyle.rules}
 		${ForegroundA.componentStyle.rules}
 	}
 `;
 
-export default ({src}) => {
-	const { loading, error, data = [] } = useFetch(src, {}, []);
+export default ({ src }) => {
+	const { loading, error, data = [] } = useFetch(src, {}, [src]);
 
 	if (loading) return <Loading />;
 
@@ -28,9 +33,7 @@ export default ({src}) => {
 		return <p>Error: {error.message}</p>;
 	}
 
-	const markup = {__html: data};
+	const markup = { __html: data };
 
-	return (
-		<DangerContainer dangerouslySetInnerHTML={markup}></DangerContainer>
-	);
+	return <DangerContainer dangerouslySetInnerHTML={markup}></DangerContainer>;
 };

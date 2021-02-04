@@ -8,9 +8,9 @@ import React, {
 	useEffect,
 } from "react";
 import { Redirect } from "react-router-dom";
-import DropIn from "braintree-web-drop-in-react";
 import gql from "graphql-tag";
 import styled, { withTheme } from "styled-components";
+import importedComponent from "react-imported-component";
 
 import {
 	Corset,
@@ -30,6 +30,7 @@ import { checkName, checkEmail, checkCharityId } from "/shared/validation";
 import { licensesById } from "/shared/licenses";
 import { productionsById } from "/shared/productions";
 import {
+	showNotification,
 	showErrorNotification,
 	getGraphQLErrorMessage,
 	showGraphQLErrorNotification,
@@ -117,11 +118,13 @@ const checkAgreedToLicenses = (agreed) => {
 	return "Please read and agree to the License Agreement(s).";
 };
 
-const Checkout = ({theme}) => {
+const DropIn = importedComponent(() => import("braintree-web-drop-in-react"));
+
+const Checkout = ({ theme }) => {
 	const { state, dispatch } = useContext(store);
 	const [instance, setInstance] = useState(null);
 	const [checkedPromo, setCheckedPromo] = useState(null);
-	const [ checkoutStage, setCheckoutStage] = useState(0);
+	const [checkoutStage, setCheckoutStage] = useState(0);
 
 	const cartItems = state.persisted.cartItems;
 
@@ -140,10 +143,7 @@ const Checkout = ({theme}) => {
 	const [formIds, setFormIds] = useState(
 		() =>
 			new Map(
-				["wantsMarketing", "agreedToLicenses"].map((key) => [
-					key,
-					_.uniqueId(),
-				])
+				["wantsMarketing", "agreedToLicenses"].map((key) => [key, _.uniqueId()])
 			)
 	);
 
@@ -163,6 +163,7 @@ const Checkout = ({theme}) => {
 		},
 	] = useLazyQuery(PROMO_DISCOUNT_RATE, {
 		onError: showGraphQLErrorNotification,
+		onCompleted: () => showNotification("Promo successfully applied."),
 	});
 	const applyPromo = (event) => {
 		event.preventDefault();
@@ -172,10 +173,9 @@ const Checkout = ({theme}) => {
 
 	const promoValidity = (() => {
 		if (!form.promoCode) return;
-		if (form.promoCode !== checkedPromo) return "Apply the promo first";
+		if (form.promoCode !== checkedPromo) return "Apply the promo first.";
 		if (promoDiscountData) return;
-		if (promoDiscountError)
-			return getGraphQLErrorMessage(promoDiscountError);
+		if (promoDiscountError) return getGraphQLErrorMessage(promoDiscountError);
 		if (promoDiscountLoading) return "Checking promo code...";
 	})();
 
@@ -183,7 +183,10 @@ const Checkout = ({theme}) => {
 		dispatch({ type: "cart-empty" });
 	};
 
-	const [makeOrder, { loading: makeOrderLoading, data: makeOrderData }] = useMutation(MAKE_ORDER, {
+	const [
+		makeOrder,
+		{ loading: makeOrderLoading, data: makeOrderData },
+	] = useMutation(MAKE_ORDER, {
 		onError: showGraphQLErrorNotification,
 		onCompleted: onOrderCompleted,
 	});
@@ -191,7 +194,7 @@ const Checkout = ({theme}) => {
 	const buy = async (event) => {
 		event.preventDefault();
 		const { name, email, promoCode, wantsMarketing } = form;
-		let  nonce;
+		let nonce;
 		try {
 			nonce = (await instance.requestPaymentMethod()).nonce;
 		} catch (error) {
@@ -276,12 +279,9 @@ const Checkout = ({theme}) => {
 							placeholder="Promo code"
 							customValidity={promoValidity}
 						/>
-						<HollowButton
-							onClick={applyPromo}
-							disabled={!form.promoCode}
-						>
-							Apply
-						</HollowButton>
+						{form.promoCode && (
+							<HollowButton onClick={applyPromo}>Apply</HollowButton>
+						)}
 					</HorizontalSplit>
 				</P>
 				<P>
@@ -305,32 +305,34 @@ const Checkout = ({theme}) => {
 							name="agreedToLicenses"
 							checked={form.agreedToLicenses}
 							onChange={onChange}
-							customValidity={checkAgreedToLicenses(
-								form.agreedToLicenses
-							)}
+							customValidity={checkAgreedToLicenses(form.agreedToLicenses)}
 						/>
 						<label htmlFor={formIds.get("agreedToLicenses")}>
-							I have read and agreed to the applicable License
-							Agreement(s).
+							I have read and agreed to the applicable License Agreement(s).
 						</label>
 					</HorizontalSplit>
 				</P>
-				<P>
+				<P style={{ color: "initial" }}>
 					<DropIn
 						options={{
-							authorization:
-								process.env.BRAINTREE_TOKENIZATION_KEY,
+							authorization: process.env.BRAINTREE_TOKENIZATION_KEY,
 							paypal: {
 								amount: total,
 								currency: "USD",
 								flow: "checkout",
-							}
+							},
 						}}
 						onInstance={(instance) => setInstance(instance)}
 					/>
 				</P>
 				<P>
-					<SubmitButton colorHover type="submit">{makeOrderLoading ? <Loading color={theme.background} /> : "Purchase"}</SubmitButton>
+					<SubmitButton colorHover type="submit">
+						{makeOrderLoading ? (
+							<Loading color={theme.background} />
+						) : (
+							"Purchase"
+						)}
+					</SubmitButton>
 				</P>
 			</form>
 		</div>

@@ -37,10 +37,10 @@ for production in "$productions"/*; do # "$production = /path/to/B1-damn-it-all-
 	cover_1024="$public_dir/$production_basename-cover-1024.jpeg"
 	# render_768="$public_dir/$production_basename-render-768.jpeg"
 
-	[ -f "$cover_128" ] || convert "$cover" $imagemagick_args -resize x128 "$cover_128"
-	[ -f "$cover_256" ] || convert "$cover" $imagemagick_args -resize x256 "$cover_256"
-	[ -f "$cover_512" ] || convert "$cover" $imagemagick_args -resize x512 "$cover_512"
-	[ -f "$cover_1024" ] || convert "$cover" $imagemagick_args -resize x1024 "$cover_1024"
+	[ -f "$cover_128" ] || convert "$cover" $imagemagick_args -resize 128x "$cover_128"
+	[ -f "$cover_256" ] || convert "$cover" $imagemagick_args -resize 256x "$cover_256"
+	[ -f "$cover_512" ] || convert "$cover" $imagemagick_args -resize 512x "$cover_512"
+	[ -f "$cover_1024" ] || convert "$cover" $imagemagick_args -resize 1024x "$cover_1024"
 	# [ -f "$render_768" ] || convert "$render" $imagemagick_args -resize x768 "$render_768"
 
 	if [ "$public" = 'true' ]; then

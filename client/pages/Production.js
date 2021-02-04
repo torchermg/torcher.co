@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import styled, { withTheme } from "styled-components";
+import { Helmet } from "react-helmet";
 
 import {
 	ForegroundA,
@@ -195,9 +196,7 @@ const Production = ({ theme }) => {
 	const production = productionsById.get(id);
 	const addToCart = () => {
 		if (
-			state.persisted.cartItems.find(
-				(cartItem) => cartItem.productionId === id
-			)
+			state.persisted.cartItems.find((cartItem) => cartItem.productionId === id)
 		) {
 			showNotification(`${production.title} is already in your bag.`);
 		} else {
@@ -276,11 +275,7 @@ const Production = ({ theme }) => {
 	const downloadOrAddToCartButton = (() => {
 		if (production.downloadUrl) {
 			return (
-				<HollowA
-					href={production.downloadUrl}
-					colorStroke
-					nonScalingStroke
-				>
+				<HollowA href={production.downloadUrl} colorStroke nonScalingStroke>
 					<DownloadSvg /> Download
 				</HollowA>
 			);
@@ -292,24 +287,23 @@ const Production = ({ theme }) => {
 		);
 	})();
 
-	const countAndDate = (() => {
-		let count = `${production.tracks.length} composition`;
-		if (production.tracks.length !== 1) {
-			count += "s";
-		}
+	const contentsAndDate = (() => {
 		return (
 			<span>
-				{count} — released {production.date.toLocaleDateString()}
+				{production.contents} — released {production.date.toLocaleDateString()}
 			</span>
 		);
 	})();
 
 	return (
 		<Container>
+			<Helmet>
+				<title>{production.title} · Torcher</title>
+			</Helmet>
 			<Corset>
 				<Layout>
 					<Aside>
-						<Render src={production.coverUrl1024} />
+						<Render key={production.id} src={production.coverUrl1024} />
 						<Description0
 							dangerouslySetInnerHTML={{
 								__html: production.description,
@@ -319,19 +313,11 @@ const Production = ({ theme }) => {
 					<Main>
 						<Title>{production.title}</Title>
 						<Buttons>
-							<HollowButton
-								onClick={play}
-								colorStroke
-								nonScalingStroke
-							>
+							<HollowButton onClick={play} colorStroke nonScalingStroke>
 								<PlaySvg /> Play
 							</HollowButton>
 							{downloadOrAddToCartButton}
-							<HollowButton
-								onClick={share}
-								colorStroke
-								nonScalingStroke
-							>
+							<HollowButton onClick={share} colorStroke nonScalingStroke>
 								<ShareSvg /> Share
 							</HollowButton>
 						</Buttons>
@@ -345,22 +331,39 @@ const Production = ({ theme }) => {
 						></Description1>
 						<Details>
 							<p>
-								{countAndDate}<br />
-								Produced by {producerLinks(production.producers)}<br />
+								{contentsAndDate}
+								<br />
+								Produced by {producerLinks(production.producers)}
+								<br />
+								Cover art by {production.coverArtists.join(", ")}
+								<br />
 								{tagLinks(production.tags)}
 							</p>
 							<p>
-								Available under <ForegroundLink to={`/license/${license.id}`}>{license.name}</ForegroundLink>
+								Available under{" "}
+								<ForegroundLink to={`/license/${license.id}`}>
+									{license.name}
+								</ForegroundLink>
 							</p>
 							<p>
-								{production.stemsIncluded && "Stems included — "}{production.formatInfo}
+								{production.stemsIncluded && "Stems included — "}
+								{production.formatInfo}
 							</p>
 						</Details>
-						{production.stemsIncluded && <Stems><StemsSvg /></Stems>}
+						{production.stemsIncluded && (
+							<Stems>
+								<StemsSvg />
+							</Stems>
+						)}
 					</Main>
 				</Layout>
 				<H2>More</H2>
-				<ProductionGrid productionIds={productions.map(production => production.id).reverse().slice(0, 5)} />
+				<ProductionGrid
+					productionIds={productions
+						.map((production) => production.id)
+						.reverse()
+						.slice(0, 5)}
+				/>
 			</Corset>
 		</Container>
 	);

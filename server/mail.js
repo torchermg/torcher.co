@@ -11,16 +11,29 @@ const mg = Mailgun({
 });
 
 export const sendReceipt = async (order) => {
-	const subject = "Your Torcher order receipt";
-	const html = await ejs.renderFile(path.join(path.resolve(), "templates/receipt.ejs"), {order, constants});
+	console.log(`sending receipt for order ${order.id} to ${order.email}`);
 
-	console.log(html);
+	const subject = "Your Torcher order receipt";
+	const html = await ejs.renderFile(
+		path.join(path.resolve(), "templates/receipt.ejs"),
+		{ order, constants }
+	);
+
 	const result = await mg.messages().send({
 		from: "Torcher <mail@torcher.co>",
 		to: order.email,
 		subject,
 		html,
 	});
-	console.log({result});
-	console.log(`sent to ${order.email}`);
+
+	console.log(
+		`successfully sent order receipt for ${order.id} to ${order.email}`
+	);
+};
+
+export const validateEmail = async (email) => {
+	console.log(`validating ${email}`);
+	const response = mg.validate(email, true, { provider_lookup: false });
+
+	return response.result !== "undeliverable";
 };

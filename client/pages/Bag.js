@@ -1,4 +1,5 @@
 import _ from "lodash";
+import { Helmet } from "react-helmet";
 import { useMutation, useLazyQuery } from "@apollo/react-hooks";
 import React, { useContext } from "react";
 import styled, { withTheme } from "styled-components";
@@ -142,11 +143,7 @@ const Bag = ({ theme }) => {
 				<td>{formatCurrency(license.price, true, true)}</td>
 				<td>
 					<BaseButton onClick={onRemoveItem} data-index={index}>
-						<Icon
-							path={mdiClose}
-							size={1}
-							color={theme.foreground}
-						/>
+						<Icon path={mdiClose} size={1} color={theme.foreground} />
 					</BaseButton>
 				</td>
 			</tr>
@@ -185,6 +182,9 @@ const Bag = ({ theme }) => {
 
 	return (
 		<Container>
+			<Helmet>
+				<title>Bag · Torcher</title>
+			</Helmet>
 			<BagSection>
 				<SectionHeader>Bag</SectionHeader>
 				{bagTableOrEmpty}

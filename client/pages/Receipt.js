@@ -89,8 +89,13 @@ export default ({}) => {
 
 	if (loading) return "Loading...";
 	if (error) {
-		if (error.graphQLErrors && error.graphQLErrors.find(({extensions}) => extensions.code === "NOT_FOUND")) {
-			return <NotFound />
+		if (
+			error.graphQLErrors &&
+			error.graphQLErrors.find(
+				({ extensions }) => extensions.code === "NOT_FOUND"
+			)
+		) {
+			return <NotFound />;
 		}
 		return error.message;
 	}
@@ -116,21 +121,22 @@ export default ({}) => {
 					</ForegroundLink>
 				</td>
 				<td>
-					<HollowA
-						href={orderItem.downloadUrl}
-						colorStroke
-						nonScalingStroke
-					>
+					<HollowA href={orderItem.downloadUrl} colorStroke nonScalingStroke>
 						<DownloadSvg /> Download
 					</HollowA>
 				</td>
-				<td style={{whiteSpace: "nowrap"}}>{formatCurrency(orderItem.price, true, true)}</td>
+				<td style={{ whiteSpace: "nowrap" }}>
+					{formatCurrency(orderItem.price, true, true)}
+				</td>
 			</tr>
 		);
 	});
 
 	return (
 		<Corset>
+			<Helmet>
+				<title>Your Order · Torcher</title>
+			</Helmet>
 			<H1>Your Order</H1>
 			<P>
 				<Strong>Name:</Strong> {data.order.user.name}
@@ -139,11 +145,7 @@ export default ({}) => {
 				<Strong>Email Address:</Strong> {data.order.user.email}
 			</P>
 			<P>
-				<Strong>Date:</Strong>{" "}
-				{new Date(data.order.date).toLocaleDateString()}
-			</P>
-			<P>
-				<Strong>Payment Method:</Strong> Magic Internet Money
+				<Strong>Date:</Strong> {new Date(data.order.date).toLocaleDateString()}
 			</P>
 			<P>
 				<Strong>Order ID:</Strong> {data.order.id}
@@ -156,15 +158,26 @@ export default ({}) => {
 						</th>
 						<th scope="col">License</th>
 						<th scope="col">Download</th>
-						<th style={{width: 0}} scope="col">Price</th>
+						<th style={{ width: 0 }} scope="col">
+							Price
+						</th>
 					</tr>
 				</THead>
 				<tbody>{orderTableRows}</tbody>
 			</OrderTable>
 			<Amounts>
-				<HorizontalSplit justifyContent="space-between"><div>Subtotal:</div><div>{formatCurrency(data.order.subtotal)}</div></HorizontalSplit>
-				<HorizontalSplit justifyContent="space-between"><div>Discount:</div><div>{formatCurrency(data.order.discount)}</div></HorizontalSplit>
-				<HorizontalSplit justifyContent="space-between"><div>Total:</div><div>{formatCurrency(data.order.total)}</div></HorizontalSplit>
+				<HorizontalSplit justifyContent="space-between">
+					<div>Subtotal:</div>
+					<div>{formatCurrency(data.order.subtotal)}</div>
+				</HorizontalSplit>
+				<HorizontalSplit justifyContent="space-between">
+					<div>Discount:</div>
+					<div>{formatCurrency(data.order.discount)}</div>
+				</HorizontalSplit>
+				<HorizontalSplit justifyContent="space-between">
+					<div>Total:</div>
+					<div>{formatCurrency(data.order.total)}</div>
+				</HorizontalSplit>
 			</Amounts>
 		</Corset>
 	);

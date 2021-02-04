@@ -8,8 +8,8 @@ const BRAINTREE_API_KEY = Buffer.from(
 const braintreeClient = new GraphQLClient(process.env.BRAINTREE_ENDPOINT, {
 	headers: {
 		authorization: `Bearer ${BRAINTREE_API_KEY}`,
-		"braintree-version": "2020-06-10"
-	}
+		"braintree-version": "2020-06-10",
+	},
 });
 
 export const charge = (nonce, amount) => {
@@ -17,20 +17,20 @@ export const charge = (nonce, amount) => {
 	return braintreeClient.request(
 		`
 			mutation ChargePaymentMethod($input: ChargePaymentMethodInput!) {
-			  chargePaymentMethod(input: $input) {
-				transaction {
-				  id
-				  status
-				  orderId
+				chargePaymentMethod(input: $input) {
+					transaction {
+						id
+						status
+						orderId
+					}
 				}
-			  }
 			}
 		`,
 		{
 			input: {
 				paymentMethodId: nonce,
-				transaction: { amount: dollars }
-			}
+				transaction: { amount: dollars },
+			},
 		}
 	);
 };

@@ -8,7 +8,7 @@ import Notifications from "react-notify-toast";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { tint, darken, lighten } from "polished";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { ScrollContext } from 'react-router-scroll-4';
+import { ScrollContext } from "react-router-scroll-4";
 
 import roobert from "/fonts/Roobert-Bold.woff2";
 import publicSansRegular from "/fonts/PublicSans-Regular.woff2";
@@ -23,12 +23,12 @@ import typeDefs from "/shared/typeDefs";
 
 const cache = new InMemoryCache();
 const link = new HttpLink({
-	uri: `${process.env.GRAPHQL_ADDRESS}`
+	uri: `${process.env.GRAPHQL_ADDRESS}`,
 });
 
 const client = new ApolloClient({ cache, link, typeDefs });
 
-const foreground = "blue";
+const foreground = "red";
 const background = "white";
 const theme = {
 	font: "Public Sans",
@@ -42,7 +42,7 @@ const theme = {
 	foregroundLight: lighten(0.2, foreground),
 	foregroundLighter: lighten(0.3, foreground),
 	foregroundDark: darken(0.06, foreground),
-	foregroundDarker: darken(0.12, foreground)
+	foregroundDarker: darken(0.12, foreground),
 };
 
 const GlobalStyle = createGlobalStyle`
@@ -85,33 +85,33 @@ const GlobalStyle = createGlobalStyle`
 // };
 const notificationColors = {
 	color: theme.background,
-	backgroundColor: theme.foreground
+	backgroundColor: theme.foreground,
 };
 const notificationOptions = {
 	colors: {
 		error: notificationColors,
 		success: notificationColors,
 		warning: notificationColors,
-		info: notificationColors
-	}
+		info: notificationColors,
+	},
 };
 
-const App = props => {
+const App = (props) => {
 	return (
 		<React.Fragment>
-		<ApolloProvider client={client}>
-			<GlobalStyle />
-			<StateProvider>
-				<ThemeProvider theme={theme}>
-					<Router>
-						<Notifications options={notificationOptions} />
-						<ScrollContext>
-							<Torcher />
-						</ScrollContext>
-					</Router>
-				</ThemeProvider>
-			</StateProvider>
-		</ApolloProvider>
+			<ApolloProvider client={client}>
+				<GlobalStyle />
+				<StateProvider>
+					<ThemeProvider theme={theme}>
+						<Router>
+							<Notifications options={notificationOptions} />
+							<ScrollContext>
+								<Torcher />
+							</ScrollContext>
+						</Router>
+					</ThemeProvider>
+				</StateProvider>
+			</ApolloProvider>
 		</React.Fragment>
 	);
 };

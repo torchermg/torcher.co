@@ -3,7 +3,7 @@ export const promos = [
 		code: "EASY10",
 		discountRate: 0.1,
 		start: Date.parse("2020-06-20"),
-		end: null,
+		end: Date.parse("2020-06-21"),
 	},
 	{
 		code: "EASY20",

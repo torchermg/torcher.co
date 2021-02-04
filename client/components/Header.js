@@ -38,7 +38,7 @@ const LogoContainer = styled(BlackenedLink)`
 `;
 
 const Flame = styled(FlameSvg)`
-	height: 3rem;
+	height: 2.75rem;
 	width: 2rem;
 	z-index: 50;
 	box-sizing: border-box;
@@ -73,7 +73,7 @@ const Nav = styled.nav`
 			display: block;
 		}
 		> *:not(${MenuButton}) {
-			display: none;		
+			display: none;
 		}
 	}
 `;
@@ -137,20 +137,21 @@ export default withTheme(
 
 		return (
 			<React.Fragment>
-				{isMenuOpen && 
-				<Overlay onClick={closeMenu}>
-					<ForegroundLink to="/bag">{bagText}</ForegroundLink>
-					<ForegroundHashLink to="/#library" replace={onHome}>
-						Library
-					</ForegroundHashLink>
-					<ForegroundLink to="/about">About</ForegroundLink>
-					<ForegroundLink to="/legal/privacy-policy">
-						Privacy Policy
-					</ForegroundLink>
-					<ForegroundLink to="/legal/terms-of-service">
-						Terms of Service
-					</ForegroundLink>
-				</Overlay>}
+				{isMenuOpen && (
+					<Overlay onClick={closeMenu}>
+						<ForegroundLink to="/bag">{bagText}</ForegroundLink>
+						<ForegroundHashLink to="/#library" replace={onHome}>
+							Library
+						</ForegroundHashLink>
+						<ForegroundLink to="/about">About</ForegroundLink>
+						<ForegroundLink to="/legal/privacy-policy">
+							Privacy Policy
+						</ForegroundLink>
+						<ForegroundLink to="/legal/terms-of-service">
+							Terms of Service
+						</ForegroundLink>
+					</Overlay>
+				)}
 				<Corset noPadding>
 					<Container>
 						<LogoContainer to="/">
@@ -167,11 +168,7 @@ export default withTheme(
 							{/* <ForegroundA href="/#footer">Contact</ForegroundA> */}
 							<ForegroundLink to="/bag">{bagText}</ForegroundLink>
 							<MenuButton onClick={toggleMenu}>
-								<Icon
-									path={iconPath}
-									size={1}
-									color={theme.foreground}
-								/>
+								<Icon path={iconPath} size={1} color={theme.foreground} />
 							</MenuButton>
 						</Nav>
 					</Container>

@@ -5,7 +5,7 @@ import { showNotification } from "/utils";
 import productions, { productionsById } from "/shared/productions";
 import tracks, { tracksById } from "/shared/tracks";
 
-const SCHEMA_VERSION = 8;
+const SCHEMA_VERSION = 9;
 const STORAGE_KEY = "persisted";
 const SYNC_ACTION = "_sync";
 const INITIAL_STATE = {};
@@ -30,10 +30,7 @@ const loadStorage = (stored, fallback) => {
 
 const initialState = {
 	...INITIAL_STATE,
-	persisted: loadStorage(
-		localStorage.getItem(STORAGE_KEY),
-		INITIAL_PERSISTED
-	),
+	persisted: loadStorage(localStorage.getItem(STORAGE_KEY), INITIAL_PERSISTED),
 };
 
 const reducers = {
@@ -52,17 +49,11 @@ const reducers = {
 			...state,
 			persisted: {
 				...state.persisted,
-				cartItems: [
-					...state.persisted.cartItems,
-					{ productionId, licenseId },
-				],
+				cartItems: [...state.persisted.cartItems, { productionId, licenseId }],
 			},
 		};
 	},
-	"cart-set-item-license": (
-		state,
-		{ cartIndex, licenseId: newLicenseId }
-	) => {
+	"cart-set-item-license": (state, { cartIndex, licenseId: newLicenseId }) => {
 		const cartItems = state.persisted.cartItems.map(
 			({ productionId, licenseId }, index) => {
 				return {
@@ -115,10 +106,7 @@ const StateProvider = ({ children }) => {
 		const newState = reducers[action.type](state, action);
 
 		if (state.persisted !== newState.persisted) {
-			localStorage.setItem(
-				STORAGE_KEY,
-				JSON.stringify(newState.persisted)
-			);
+			localStorage.setItem(STORAGE_KEY, JSON.stringify(newState.persisted));
 		}
 
 		return newState;

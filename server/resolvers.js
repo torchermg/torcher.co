@@ -154,6 +154,7 @@ export default {
 					status === "SETTLEMENT_PENDING"
 				)
 			) {
+				console.error({ btResponse });
 				throw new ApolloError(
 					`Transaction failed. Please check your payment details and try again.`
 				);

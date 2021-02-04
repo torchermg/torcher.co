@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import styled, { withTheme } from "styled-components";
 import { Helmet } from "react-helmet";
+import _ from "lodash";
 
 import {
 	ForegroundA,
@@ -359,10 +360,12 @@ const Production = ({ theme }) => {
 				</Layout>
 				<H2>More</H2>
 				<ProductionGrid
-					productionIds={productions
+					productionIds={_.sampleSize(
+						productions.filter((p) => p.id !== production.id),
+						5
+					)
 						.map((production) => production.id)
-						.reverse()
-						.slice(0, 5)}
+						.reverse()}
 				/>
 			</Corset>
 		</Container>

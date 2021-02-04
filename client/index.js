@@ -26,6 +26,8 @@ const link = new HttpLink({
 	uri: `${process.env.GRAPHQL_ADDRESS}`,
 });
 
+console.log("gqla is ", process.env.GRAPHQL_ADDRESS);
+
 const client = new ApolloClient({ cache, link, typeDefs });
 
 const foreground = "red";

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import styled, { withTheme } from "styled-components";
 import { Helmet } from "react-helmet";
@@ -17,6 +17,7 @@ import {
 	tagLinks,
 	THead,
 } from "/components/common";
+import NotFound from "/pages/NotFound";
 import ProductionGrid from "/components/ProductionGrid";
 import { store, emitter } from "/store";
 import {
@@ -37,6 +38,8 @@ import PlusSvg from "/images/plus.svg";
 import productions, { productionsById } from "/shared/productions";
 import { tracksById } from "/shared/tracks";
 import { licensesById } from "/shared/licenses";
+
+const RANDOM_PRODUCTIONS_COUNT = 5;
 
 const breakpoint = "960px";
 
@@ -195,6 +198,18 @@ const Production = ({ theme }) => {
 	const { state, dispatch } = useContext(store);
 
 	const production = productionsById.get(id);
+	if (!production) return <NotFound />;
+
+	const [randomProductions, setRandomProductions] = useState([]);
+
+	useEffect(() => {
+		const randomProductions = _.sampleSize(
+			productions.filter((p) => p.id !== production.id),
+			RANDOM_PRODUCTIONS_COUNT
+		).map((production) => production.id);
+		setRandomProductions(randomProductions);
+	}, [id]);
+
 	const addToCart = () => {
 		if (
 			state.persisted.cartItems.find((cartItem) => cartItem.productionId === id)
@@ -359,14 +374,7 @@ const Production = ({ theme }) => {
 					</Main>
 				</Layout>
 				<H2>More</H2>
-				<ProductionGrid
-					productionIds={_.sampleSize(
-						productions.filter((p) => p.id !== production.id),
-						5
-					)
-						.map((production) => production.id)
-						.reverse()}
-				/>
+				<ProductionGrid productionIds={randomProductions} />
 			</Corset>
 		</Container>
 	);

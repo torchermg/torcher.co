@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import gql from "graphql-tag";
+import Helmet from "react-helmet";
 
 import {
 	H1,

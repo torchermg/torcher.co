@@ -32,6 +32,8 @@ export const sendReceipt = async (order) => {
 };
 
 export const validateEmail = async (email) => {
+	return true; // TODO
+
 	console.log(`validating ${email}`);
 	const response = mg.validate(email, true, { provider_lookup: false });
 

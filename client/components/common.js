@@ -24,7 +24,7 @@ export const Corset = styled.div`
 	${(props) =>
 		props.loose ||
 		css`
-			max-width: 1920px;
+			max-width: ${props.width || "1920px"};
 		`}
 	padding: 0 2rem;
 
@@ -460,6 +460,7 @@ export const SectionHeader = styled(H1)`
 
 export const TextInput = styled(Input)`
 	width: 100%;
+	font-size: max(16px, 1rem);
 	border: none;
 	outline: none;
 	height: 1.25em;
@@ -469,6 +470,12 @@ export const TextInput = styled(Input)`
 	border-radius: 0;
 	:invalid {
 		box-shadow: none;
+	}
+	::-webkit-input-placeholder {
+		color: ${(props) => props.theme.foregroundLighter};
+	}
+	::-moz-placeholder {
+		color: ${(props) => props.theme.foregroundLighter};
 	}
 `;
 export const CheckboxInput = styled(Input).attrs({ type: "checkbox" })`

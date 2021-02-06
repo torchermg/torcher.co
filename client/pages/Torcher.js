@@ -16,7 +16,7 @@ import NotFound from "/pages/NotFound";
 import License from "/pages/License";
 import Legal from "/pages/Legal";
 import Player from "/components/Player";
-// import Footer from "/components/Footer";
+import Footer from "/components/Footer";
 
 // import Cart from "/pages/Cart";
 // import Bag from "/pages/Bag";
@@ -87,7 +87,7 @@ export default (props) => {
 							<Route path="*" component={NotFound} />
 						</Switch>
 					</Content>
-					{/* <Footer /> */}
+					<Footer />
 				</Scroll>
 			</ScrollContainer>
 			<Player />

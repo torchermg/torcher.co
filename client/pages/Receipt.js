@@ -133,6 +133,9 @@ export default ({}) => {
 		);
 	});
 
+	const dateString = new Date(
+		data.order.date.replace(/-/g, "/")
+	).toLocaleDateString();
 	return (
 		<Corset>
 			<Helmet>
@@ -146,7 +149,7 @@ export default ({}) => {
 				<Strong>Email Address:</Strong> {data.order.user.email}
 			</P>
 			<P>
-				<Strong>Date:</Strong> {new Date(data.order.date).toLocaleDateString()}
+				<Strong>Date:</Strong> {dateString}
 			</P>
 			<P>
 				<Strong>Order ID:</Strong> {data.order.id}

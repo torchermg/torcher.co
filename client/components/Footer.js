@@ -1,14 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-import { H2, H6, TintedA } from "/components/common";
+import { H2, H6, ForegroundA, ForegroundLink } from "/components/common";
 import LogoSvg from "/images/logo.svg";
 import InstagramSvg from "/images/instagram.svg";
 import constants from "/shared/constants";
 
-const breakpoint = "840px";
-
-const LogoContainer = styled(TintedA)``;
+const LogoContainer = styled(ForegroundA)``;
 const Logo = styled(LogoSvg)`
 	width: 16rem;
 `;
@@ -21,22 +19,27 @@ const InstagramContainer = styled.div`
 	align-self: end;
 `;
 
-const FooterH6 = styled(H6)`
-	color: ${(props) => props.theme.background};
-`;
+const FooterH6 = styled(H6)``;
+
+const breakpoint = "800px";
 
 const Copyright = styled.div`
 	white-space: nowrap;
-	font-size: 0.8rem;
-	align-self: end;
-	margin-top: 1rem;
-	justify-self: end;
-	text-align: center;
+	// font-size: 0.8rem;
+	// align-self: end;
+	// margin-top: 1rem;
+	// justify-self: end;
+	// text-align: center;
 `;
 
 const Container = styled.div.attrs({ id: "footer" })`
-	background: ${(props) => props.theme.foreground};
-	color: ${(props) => props.theme.background};
+	line-height: 1.5rem;
+	flex-direction: row;
+	@media screen and (max-width: ${breakpoint}) {
+		flex-direction: column;
+	}
+	display: flex;
+	justify-content: space-between;
 	padding: 2rem;
 `;
 const GridContainer = styled.div`
@@ -65,23 +68,16 @@ const GridContainer = styled.div`
 export default ({}) => {
 	return (
 		<Container>
-			<GridContainer>
-				<ContactContainer>
-					<div>
-						email:{" "}
-						<TintedA href={`mailto:${constants.CONTACT_EMAIL}`}>
-							{constants.CONTACT_EMAIL}
-						</TintedA>
-					</div>
-					<div>
-						instagram:{" "}
-						<TintedA href={constants.INSTAGRAM_URL}>
-							{constants.INSTAGRAM_HANDLE}
-						</TintedA>
-					</div>
-				</ContactContainer>
-				<Copyright>Copyright {1900 + (new Date()).getYear()} Torcher Music Group LLC</Copyright>
-			</GridContainer>
+			<ForegroundLink to="/legal/terms-of-service">
+				Terms of Service
+			</ForegroundLink>
+			<ForegroundLink to="/legal/privacy-policy">Privacy Policy</ForegroundLink>
+			<ForegroundA href={`mailto:${constants.CONTACT_EMAIL}`}>
+				{constants.CONTACT_EMAIL}
+			</ForegroundA>
+			<Copyright>
+				© {1900 + new Date().getYear()} Torcher Music Group LLC
+			</Copyright>
 		</Container>
 	);
 };

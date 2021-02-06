@@ -1,7 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-import { H2, H6, ForegroundA, ForegroundLink } from "/components/common";
+import {
+	Corset,
+	H2,
+	H6,
+	ForegroundA,
+	ForegroundLink,
+} from "/components/common";
 import LogoSvg from "/images/logo.svg";
 import InstagramSvg from "/images/instagram.svg";
 import constants from "/shared/constants";
@@ -19,9 +25,15 @@ const InstagramContainer = styled.div`
 	align-self: end;
 `;
 
+const Links = styled.div`
+	> *:not(:last-child) {
+		margin-right: 2rem;
+	}
+`;
+
 const FooterH6 = styled(H6)``;
 
-const breakpoint = "800px";
+const breakpoint = "900px";
 
 const Copyright = styled.div`
 	white-space: nowrap;
@@ -67,17 +79,23 @@ const GridContainer = styled.div`
 
 export default ({}) => {
 	return (
-		<Container>
-			<ForegroundLink to="/legal/terms-of-service">
-				Terms of Service
-			</ForegroundLink>
-			<ForegroundLink to="/legal/privacy-policy">Privacy Policy</ForegroundLink>
-			<ForegroundA href={`mailto:${constants.CONTACT_EMAIL}`}>
-				{constants.CONTACT_EMAIL}
-			</ForegroundA>
-			<Copyright>
-				© {1900 + new Date().getYear()} Torcher Music Group LLC
-			</Copyright>
-		</Container>
+		<Corset>
+			<Container>
+				<Links>
+					<ForegroundLink to="/legal/terms-of-service">
+						Terms of Service
+					</ForegroundLink>
+					<ForegroundLink to="/legal/privacy-policy">
+						Privacy Policy
+					</ForegroundLink>
+					<ForegroundA href={`mailto:${constants.CONTACT_EMAIL}`}>
+						{constants.CONTACT_EMAIL}
+					</ForegroundA>
+				</Links>
+				<Copyright>
+					© {1900 + new Date().getYear()} Torcher Music Group LLC
+				</Copyright>
+			</Container>
+		</Corset>
 	);
 };

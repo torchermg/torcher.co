@@ -12,7 +12,7 @@ const noFocus = css`
 		outline: none;
 	}
 	:-moz-focusring {
-		outline: 1px dashed ${props => props.theme.foreground} !important;
+		outline: 1px dashed ${(props) => props.theme.foreground} !important;
 	}
 `;
 
@@ -21,21 +21,25 @@ export const Corset = styled.div`
 	width: 100%;
 	box-sizing: border-box;
 	margin: 0 auto;
-	${props => props.loose || css`max-width: 1920px;`}
+	${(props) =>
+		props.loose ||
+		css`
+			max-width: 1920px;
+		`}
 	padding: 0 2rem;
-	
+
 	@media screen and (max-width: ${flameBreakpoint}) {
 		padding: 0 1rem;
 	}
 `;
 
 export const Strong = styled.strong`
-	color: ${props => props.theme.foreground};
+	color: ${(props) => props.theme.foreground};
 `;
 
 export const H1 = styled.h1`
-	color: ${props => props.theme.foreground};
-	font-family: ${props => props.theme.accentFont};
+	color: ${(props) => props.theme.foreground};
+	font-family: ${(props) => props.theme.accentFont};
 	letter-spacing: -0.04em;
 	font-size: 4rem;
 	margin: 0;
@@ -43,26 +47,26 @@ export const H1 = styled.h1`
 `;
 
 export const H2 = styled.h2`
-	color: ${props => props.theme.foreground};
-	font-family: ${props => props.theme.accentFont};
+	color: ${(props) => props.theme.foreground};
+	font-family: ${(props) => props.theme.accentFont};
 	margin: 0;
 	line-height: 2;
-	border-bottom 1px solid ${props => props.theme.foreground};
+	border-bottom 1px solid ${(props) => props.theme.foreground};
 `;
 
 export const H6 = styled.h6`
-	color: ${props => props.theme.foreground};
-	font-family: ${props => props.theme.accentFont};
+	color: ${(props) => props.theme.foreground};
+	font-family: ${(props) => props.theme.accentFont};
 	font-size: 1.2rem;
 	margin: 0;
 `;
 
 export const THead = styled.thead`
 	th {
-		border-bottom: 1px solid ${props => props.theme.foreground};
+		border-bottom: 1px solid ${(props) => props.theme.foreground};
 		font-weight: normal;
 	}
-	color: ${props => props.theme.foreground};
+	color: ${(props) => props.theme.foreground};
 	font-weight: bold;
 `;
 
@@ -82,115 +86,121 @@ export const BaseA = styled.a`
 export const BaseButton = styled.button`
 	${noFocus}
 	user-select: none;
-	display: ${props => props.display || "block"};
+	display: ${(props) => props.display || "block"};
 	border: unset;
 	padding: unset;
 	margin: unset;
 	background: unset;
 	font-size: unset;
-	font-family: ${props => props.theme.font};
+	font-family: ${(props) => props.theme.font};
 	appearance: none;
 	:not(:disabled):hover {
 		cursor: pointer;
 	}
 `;
 
-const svgCss = ({normal, hover, active, disabled}) => css`
+const svgCss = ({ normal, hover, active, disabled }) => css`
 	svg {
 		display: block;
 		overflow: visible;
-		${props => props.nonScalingStroke && css`* {
-			vector-effect: non-scaling-stroke;
-			stroke-width: 1;
-		}`}
-		${props => props.constrainSvg && css`
-			max-width: 100%;
-			height: 100%;
-		`}
+		${(props) =>
+			props.nonScalingStroke &&
+			css`
+				* {
+					vector-effect: non-scaling-stroke;
+					stroke-width: 1;
+				}
+			`}
+		${(props) =>
+			props.constrainSvg &&
+			css`
+				max-width: 100%;
+				height: 100%;
+			`}
 	}
 	:not(:disabled) {
 		svg * {
 			fill: ${normal.fill};
-			${props => props.colorStroke && css`stroke: ${normal.stroke}`};
+			${(props) =>
+				props.colorStroke &&
+				css`
+					stroke: ${normal.stroke};
+				`};
 		}
 		@media (hover: hover) and (pointer: fine) {
 			:hover svg * {
-
-				${props => props.colorHover && css`fill: ${hover.fill}`};
-				${props => props.colorStroke && css`stroke: ${hover.stroke}`};
+				${(props) =>
+					props.colorHover &&
+					css`
+						fill: ${hover.fill};
+					`};
+				${(props) =>
+					props.colorStroke &&
+					css`
+						stroke: ${hover.stroke};
+					`};
 			}
 		}
 		:active svg * {
 			fill: ${active.fill};
-			${props => props.colorStroke && css`stroke: ${active.stroke}`};
+			${(props) =>
+				props.colorStroke &&
+				css`
+					stroke: ${active.stroke};
+				`};
 		}
 	}
 	:disabled svg * {
 		fill: ${disabled.fill};
-		${props => props.colorStroke && css`stroke: ${disabled.stroke}`};
+		${(props) =>
+			props.colorStroke &&
+			css`
+				stroke: ${disabled.stroke};
+			`};
 	}
 `;
 
 export const foregroundCss = css`
-	${props => svgCss({
-		normal: {fill: props.theme.foreground, stroke: props.theme.foreground},
-		hover: {fill: props.theme.foregroundDark, stroke: props.theme.foregroundDark},
-		active: {fill: props.theme.foregroundDarker, stroke: props.theme.foregroundDarker},
-		disabled: {fill: props.theme.foregroundLighter, stroke: props.theme.foregroundLighter},
-	})}
+	${(props) =>
+		svgCss({
+			normal: { fill: props.theme.foreground, stroke: props.theme.foreground },
+			hover: {
+				fill: props.theme.foregroundDark,
+				stroke: props.theme.foregroundDark,
+			},
+			active: {
+				fill: props.theme.foregroundDarker,
+				stroke: props.theme.foregroundDarker,
+			},
+			disabled: {
+				fill: props.theme.foregroundLighter,
+				stroke: props.theme.foregroundLighter,
+			},
+		})}
 	:not(:disabled) {
-		color: ${props => props.theme.foreground};
-		${props => props.colorHover && css`
-			@media (hover: hover) and (pointer: fine) {
-				:hover {
-					color: ${props => props.theme.foregroundDark};
+		color: ${(props) => props.theme.foreground};
+		${(props) =>
+			props.colorHover &&
+			css`
+				@media (hover: hover) and (pointer: fine) {
+					:hover {
+						color: ${(props) => props.theme.foregroundDark};
+					}
 				}
-			}
-		`}
+			`}
 		:active {
-			color: ${props => props.theme.foregroundDarker};
+			color: ${(props) => props.theme.foregroundDarker};
 		}
 	}
 	:disabled {
-		color: ${props => props.theme.foregroundLighter};
+		color: ${(props) => props.theme.foregroundLighter};
 	}
 `;
-
-const blackenedCss = css`
-	${props => svgCss({
-		normal: {fill: props.theme.foreground, stroke: props.theme.foreground},
-		hover: {fill: "black", stroke: "black"},
-		active: {fill: "black", stroke: "black"},
-		disabled: {fill: props.theme.foregroundLighter, stroke: props.theme.foregroundLighter},
-	})}
-	:not(:disabled) {
-		color: ${props => props.theme.foreground};
-		${props => props.colorHover && css`
-			@media (hover: hover) and (pointer: fine) {
-				:hover {
-					color: ${props => props.theme.foregroundDark};
-				}
-			}
-		`}
-		:active {
-			color: ${props => props.theme.foregroundDarker};
-		}
-	}
-	:disabled {
-		color: ${props => props.theme.foregroundLighter};
-	}
-`;
-
 
 export const ForegroundA = styled(BaseA)`
 	${foregroundCss}
 `;
-
-export const BlackenedA = styled(BaseA)`
-	${blackenedCss}
-`;
-export const ForegroundLink = styled(ForegroundA).attrs({as: Link})``;
-export const BlackenedLink = styled(BlackenedA).attrs({as:Link})``;
+export const ForegroundLink = styled(ForegroundA).attrs({ as: Link })``;
 
 export const ForegroundButton = styled(BaseButton)`
 	${foregroundCss}
@@ -210,7 +220,7 @@ const thickCss = css`
 const thinCss = css`
 	font-size: 1.2rem;
 	border-radius: 4px;
-	padding: 0.4rem 1.0rem;
+	padding: 0.4rem 1rem;
 	> svg {
 		display: inline-block;
 		height: 0.75em;
@@ -219,30 +229,33 @@ const thinCss = css`
 `;
 
 const solidCss = css`
-	${props => svgCss({
-		normal: {fill: props.theme.background, stroke: props.theme.background},
-		hover: {fill: props.theme.background, stroke: props.theme.background},
-		active: {fill: props.theme.background, stroke: props.theme.background},
-		disabled: {fill: "transparent", stroke: props.theme.background},
-	})}
+	${(props) =>
+		svgCss({
+			normal: { fill: props.theme.background, stroke: props.theme.background },
+			hover: { fill: props.theme.background, stroke: props.theme.background },
+			active: { fill: props.theme.background, stroke: props.theme.background },
+			disabled: { fill: "transparent", stroke: props.theme.background },
+		})}
 	:not(:disabled) {
-		color: ${props => props.theme.background};
-		background: ${props => props.theme.foreground};
-		${props => props.colorHover && css`
-			@media (hover: hover) and (pointer: fine) {
-				:hover {
-					background: ${props => props.theme.foregroundDark};
+		color: ${(props) => props.theme.background};
+		background: ${(props) => props.theme.foreground};
+		${(props) =>
+			props.colorHover &&
+			css`
+				@media (hover: hover) and (pointer: fine) {
+					:hover {
+						background: ${(props) => props.theme.foregroundDark};
+					}
 				}
-			}
-		`}
+			`}
 		:active {
-			background: ${props => props.theme.foregroundDarker};
+			background: ${(props) => props.theme.foregroundDarker};
 		}
 	}
 	:disabled {
-		color: ${props => props.theme.foreground};
-		background: ${props => props.theme.background};
-		border: 1px solid ${props => props.theme.foreground};
+		color: ${(props) => props.theme.foreground};
+		background: ${(props) => props.theme.background};
+		border: 1px solid ${(props) => props.theme.foreground};
 	}
 `;
 
@@ -264,29 +277,37 @@ export const SolidButton = styled(BaseButton)`
 	${thickCss}
 `;
 
-
 const backgroundCss = css`
-	${props => svgCss({
-		normal: {fill: props.theme.background, stroke: props.theme.background},
-		hover: {fill: props.theme.backgroundDark, stroke: props.theme.backgroundDark},
-		active: {fill: props.theme.backgroundDarker, stroke: props.theme.backgroundDarker},
-		disabled: {fill: "transparent", stroke: props.theme.background},
-	})}
+	${(props) =>
+		svgCss({
+			normal: { fill: props.theme.background, stroke: props.theme.background },
+			hover: {
+				fill: props.theme.backgroundDark,
+				stroke: props.theme.backgroundDark,
+			},
+			active: {
+				fill: props.theme.backgroundDarker,
+				stroke: props.theme.backgroundDarker,
+			},
+			disabled: { fill: "transparent", stroke: props.theme.background },
+		})}
 	:not(:disabled) {
-		color: ${props => props.theme.background};
-		${props => props.colorHover && css`
-			@media (hover: hover) and (pointer: fine) {
-				:hover {
-					color: ${props => props.theme.backgroundDark};
+		color: ${(props) => props.theme.background};
+		${(props) =>
+			props.colorHover &&
+			css`
+				@media (hover: hover) and (pointer: fine) {
+					:hover {
+						color: ${(props) => props.theme.backgroundDark};
+					}
 				}
-			}
-		`}
+			`}
 		:active {
-			color: ${props => props.theme.backgroundDarker};
+			color: ${(props) => props.theme.backgroundDarker};
 		}
 	}
 	:disabled {
-		color: ${props => props.theme.foregroundLighter};
+		color: ${(props) => props.theme.foregroundLighter};
 	}
 `;
 
@@ -294,34 +315,43 @@ export const BackgroundA = styled(BaseA)`
 	${backgroundCss}
 `;
 
-export const BackgroundLink = styled(BackgroundA).attrs({as: Link})``;
+export const BackgroundLink = styled(BackgroundA).attrs({ as: Link })``;
 
 export const BackgroundButton = styled(BaseButton)`
 	${backgroundCss}
 `;
 
 const tintedCss = css`
-	${props => svgCss({
-		normal: {fill: props.theme.background, stroke: props.theme.background},
-		hover: {fill: props.theme.foregroundTint, stroke: props.theme.foregroundTint},
-		active: {fill: props.theme.foregroundTinter, stroke: props.theme.foregroundTinter},
-		disabled: {fill: "transparent", stroke: props.theme.background},
-	})}
+	${(props) =>
+		svgCss({
+			normal: { fill: props.theme.background, stroke: props.theme.background },
+			hover: {
+				fill: props.theme.foregroundTint,
+				stroke: props.theme.foregroundTint,
+			},
+			active: {
+				fill: props.theme.foregroundTinter,
+				stroke: props.theme.foregroundTinter,
+			},
+			disabled: { fill: "transparent", stroke: props.theme.background },
+		})}
 	:not(:disabled) {
-		color: ${props => props.theme.background};
-		${props => props.colorHover && css`
-			@media (hover: hover) and (pointer: fine) {
-				:hover {
-					color: ${props => props.theme.foregroundTint};
+		color: ${(props) => props.theme.background};
+		${(props) =>
+			props.colorHover &&
+			css`
+				@media (hover: hover) and (pointer: fine) {
+					:hover {
+						color: ${(props) => props.theme.foregroundTint};
+					}
 				}
-			}
-		`}
+			`}
 		:active {
-			color: ${props => props.theme.foregroundTinter};
+			color: ${(props) => props.theme.foregroundTinter};
 		}
 	}
 	:disabled {
-		color: ${props => props.theme.foregroundLighter};
+		color: ${(props) => props.theme.foregroundLighter};
 	}
 `;
 
@@ -333,29 +363,33 @@ export const TintedButton = styled(BaseButton)`
 `;
 
 const hollowCss = css`
-	${props => svgCss({
-		normal: {fill: props.theme.foreground, stroke: props.theme.foreground},
-		hover: {fill: props.theme.foregroundDark, stroke: props.theme.foregroundDark},
-		active: {fill: props.theme.background, stroke: props.theme.background},
-		disabled: {fill: "transparent", stroke: props.theme.foreground},
-	})}
+	${(props) =>
+		svgCss({
+			normal: { fill: props.theme.foreground, stroke: props.theme.foreground },
+			hover: {
+				fill: props.theme.foregroundDark,
+				stroke: props.theme.foregroundDark,
+			},
+			active: { fill: props.theme.background, stroke: props.theme.background },
+			disabled: { fill: "transparent", stroke: props.theme.foreground },
+		})}
 	:not(:disabled) {
-		border: 1px solid ${props => props.theme.foreground};
-		color: ${props => props.theme.foreground};
+		border: 1px solid ${(props) => props.theme.foreground};
+		color: ${(props) => props.theme.foreground};
 		@media (hover: hover) and (pointer: fine) {
 			:hover {
-				background: ${props => props.theme.foregroundTint};
+				background: ${(props) => props.theme.foregroundTint};
 			}
 		}
 		:active {
-			border: 1px solid ${props => props.theme.foregroundDarker};
-			background: ${props => props.theme.foregroundDarker};
-			color: ${props => props.theme.background};
+			border: 1px solid ${(props) => props.theme.foregroundDarker};
+			background: ${(props) => props.theme.foregroundDarker};
+			color: ${(props) => props.theme.background};
 		}
 	}
 	:disabled {
-		color: ${props => props.theme.foregroundLight}
-		border: 1px solid ${props => props.theme.foregroundLight};
+		color: ${(props) => props.theme.foregroundLight}
+		border: 1px solid ${(props) => props.theme.foregroundLight};
 	}
 `;
 
@@ -377,7 +411,7 @@ export const HollowButton = styled(BaseButton)`
 	${thinCss}
 `;
 
-const Input = props => {
+const Input = (props) => {
 	const inputRef = useRef(null);
 	const { customValidity, ...inputProps } = props;
 	useEffect(() => {
@@ -399,16 +433,16 @@ const HiddenInputRadio = styled(Input).attrs({ type: "radio" })`
 	&:checked {
 		+ label,
 		+ label:hover {
-			color: ${props => props.theme.background};
-			background: ${props => props.theme.foreground};
+			color: ${(props) => props.theme.background};
+			background: ${(props) => props.theme.foreground};
 		}
 		+ label:active {
-			background: ${props => props.theme.foregroundDarker};
+			background: ${(props) => props.theme.foregroundDarker};
 		}
 	}
 `;
 
-export const FancyRadioButton = props => {
+export const FancyRadioButton = (props) => {
 	const [formId, setFormId] = useState(_.uniqueId());
 	const { children, ...inputProps } = props;
 	return (
@@ -429,8 +463,8 @@ export const TextInput = styled(Input)`
 	border: none;
 	outline: none;
 	height: 1.25em;
-	color: ${props => props.theme.foreground};
-	border-bottom: 1px solid ${props => props.theme.foreground};
+	color: ${(props) => props.theme.foreground};
+	border-bottom: 1px solid ${(props) => props.theme.foreground};
 	padding: 0.2em 0;
 	border-radius: 0;
 	:invalid {
@@ -461,7 +495,7 @@ export const Select = styled.select`
 
 const trackHeight = "4px";
 const interactablePadding = "1rem";
-const styleThumb = style => css`
+const styleThumb = (style) => css`
 	::-moz-range-thumb {
 		${style}
 	}
@@ -471,7 +505,7 @@ const styleThumb = style => css`
 		${style}
 	}
 `;
-const styleTrack = style => css`
+const styleTrack = (style) => css`
 	::-moz-range-track {
 		${style}
 	}
@@ -484,7 +518,7 @@ const styleTrack = style => css`
 `;
 export const BaseSlider = styled.input.attrs({ type: "range", step: "any" })`
 	${noFocus}
-	--track-background: ${props => props.theme.foregroundTinter};
+	--track-background: ${(props) => props.theme.foregroundTinter};
 	background: unset;
 	position: relative;
 	z-index: 1;
@@ -500,7 +534,7 @@ export const BaseSlider = styled.input.attrs({ type: "range", step: "any" })`
 		border: none;
 		width: ${trackHeight};
 		height: ${trackHeight};
-		background: ${props => props.theme.foreground};
+		background: ${(props) => props.theme.foreground};
 		will-change: height;
 		transition: height ${ANIMATION_DURATION};
 	`)}
@@ -543,12 +577,12 @@ export const updateSlider = (element, theme, value) => {
 // 		.map((tag, index) => <BaseLink key={index}>{tag}</BaseLink>)
 // 		.reduce((previous, current) => [previous, " / ", current]);
 // };
-export const producerLinks = producers => {
+export const producerLinks = (producers) => {
 	return producers
 		.map((producer, index) => <span key={index}>{producer}</span>)
 		.reduce((previous, current) => [previous, ", ", current]);
 };
-export const tagLinks = tags => {
+export const tagLinks = (tags) => {
 	if (!tags.length) {
 		return null;
 	}
@@ -567,10 +601,11 @@ const spin = keyframes`
 const loadingDefaultSize = "1rem";
 const loadingBorderWidth = "3px";
 export const Loading = styled.div`
-	width: ${props => props.size || loadingDefaultSize};
-	height: ${props => props.size || loadingDefaultSize};
+	width: ${(props) => props.size || loadingDefaultSize};
+	height: ${(props) => props.size || loadingDefaultSize};
 	border-radius: 50%;
-	border: ${loadingBorderWidth} solid ${props => props.color || props.theme.foreground};
+	border: ${loadingBorderWidth} solid
+		${(props) => props.color || props.theme.foreground};
 	border-top: ${loadingBorderWidth} solid transparent;
 	animation: ${spin} 1s linear infinite;
 `;

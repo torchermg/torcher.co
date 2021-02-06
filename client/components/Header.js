@@ -7,7 +7,6 @@ import { transparentize } from "polished";
 import Icon from "@mdi/react";
 import { mdiMenu, mdiClose } from "@mdi/js";
 import {
-	BlackenedLink,
 	flameBreakpoint,
 	ForegroundLink,
 	ForegroundA,
@@ -28,7 +27,7 @@ const Container = styled.header`
 	align-items: center;
 `;
 
-const LogoContainer = styled(BlackenedLink)`
+const LogoContainer = styled(ForegroundLink)`
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;

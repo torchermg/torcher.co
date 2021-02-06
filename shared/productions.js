@@ -98,7 +98,7 @@ const rawProductions = [
 		contents: "3 compositions",
 		title: "Free Pack 01",
 		description:
-			"<em>Free Pack 01</em> is a free sample pack from Torcher. Ranging in styles from 70s soul and disco to modern rap and electronic music, we hope you can find inspiration for your own productions through these musical and sonic ideas.",
+			"<em>Free Pack 01</em> is a free sample pack from Torcher ranging in styles from 70s soul and disco to modern rap and electronic music. We hope that you find inspiration for your own productions through these musical and sonic ideas.",
 		formatInfo: "44.1 kHz WAV",
 		stemsIncluded: true,
 		basename: "S1-free-pack-01",
@@ -117,7 +117,7 @@ const rawProductions = [
 		contents: "15 compositions",
 		title: "Platinum, Guitar and Synthesizer",
 		description:
-			"<em>Platinum, Guitar and Synthesizer</em> is the first major release from Torcher. The project was conceived to meet the demand of current rap, rnb, and pop producers as they deliver increasingly guitar driven productions. Created in Atlanta, this pack takes influence from several rap artists and producers in the area. More experimental influences for the work come from artists such as Frank Ocean and Bon Iver. The goal with these 15 compositions was to explore a vast sonic variety through the utilization of just guitar and synth tones, while keeping musical ideas concise and minimal. At times, these two instruments will meld, and become indistinguishable from one another. This is intentional.",
+			"<em>Platinum, Guitar and Synthesizer</em> is the first major release from Torcher. The project was conceived to meet the demand of current rap, rnb, and pop producers as they increasingly deliver guitar-driven productions. Created in Atlanta, this pack takes influence from several rap artists and producers in the area. More experimental influences for the work come from artists such as Frank Ocean and Bon Iver. These 15 compositions explore vast sonic territory through the use of guitar and synth tones. At times, these two instruments will meld, becoming indistinguishable from one another. This is intentional.",
 		formatInfo: "44.1 kHz WAV",
 		stemsIncluded: true,
 		basename: "S2-platinum-guitar-and-synthesizer",

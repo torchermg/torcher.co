@@ -1,15 +1,10 @@
-export const checkName = name => {
+export const checkName = (name) => {
 	if (name) return;
-	return "Name can't be empty!";
+	return "Please enter a name.";
 };
 
 const emailRe = /\S+@\S+\.\S+/;
-export const checkEmail = email => {
+export const checkEmail = (email) => {
 	if (emailRe.test(email)) return;
-	return "Not a valid email address.";
+	return "Please enter a valid email address.";
 };
-
-export const checkCharityId = charityId => {
-	if (charityId !== null) return;
-	return "Select a charity, loser!";
-}

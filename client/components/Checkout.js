@@ -163,7 +163,7 @@ const Checkout = ({ theme }) => {
 		},
 	] = useLazyQuery(PROMO_DISCOUNT_RATE, {
 		onError: showGraphQLErrorNotification,
-		onCompleted: () => showNotification("Promo successfully applied."),
+		onCompleted: () => showNotification("Promo successfully applied!"),
 	});
 	const applyPromo = (event) => {
 		event.preventDefault();

@@ -98,7 +98,7 @@ const rawProductions = [
 		contents: "3 compositions",
 		title: "Free Pack 01",
 		description:
-			"<em>Free Pack 01</em> is a free sample pack from Torcher ranging in styles from 70s soul and disco to modern rap and electronic music. We hope that you find inspiration for your own productions through these musical and sonic ideas.",
+			"<em>Free Pack 01</em> is a free sample pack from Torcher ranging in styles from 70s soul and disco to modern rap and electronic music. We hope that you find inspiration for your own productions in these musical and sonic ideas.",
 		formatInfo: "44.1 kHz WAV",
 		stemsIncluded: true,
 		basename: "S1-free-pack-01",

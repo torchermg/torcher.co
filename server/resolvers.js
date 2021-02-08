@@ -239,6 +239,24 @@ export default {
 				`processed order ${order.id} worth ${order.total} from ${name} <${email}>`
 			);
 
+			if (process.env.NOTIFICATION_URL) {
+				try {
+					const formData = new FormData();
+					formData.append("title", "New Torcher Order");
+					formData.append(
+						"message",
+						`You just made $${(order.total / 100).toFixed(2)}`
+					);
+					formData.append("priority", process.env.NOTIFICATION_PRIORITY);
+					fetch(process.env.NOTIFICATION_URL, {
+						method: "POST",
+						body: formData,
+					});
+				} catch (e) {
+					console.error(`failed to send notification`, e);
+				}
+			}
+
 			return order.id;
 		},
 	},

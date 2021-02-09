@@ -172,11 +172,7 @@ class Player extends React.PureComponent {
 		this.trackerRef.current.value = progress;
 		updateSlider(this.trackerRef.current, this.props.theme, progress);
 
-		updateSlider(
-			this.volumeRef.current,
-			this.props.theme,
-			this.state.volume
-		);
+		updateSlider(this.volumeRef.current, this.props.theme, this.state.volume);
 
 		const elapsed = this.formatProgress(progress);
 		this.elapsedRef.current.textContent = elapsed;
@@ -206,8 +202,7 @@ class Player extends React.PureComponent {
 	next = () => {
 		this.context.dispatch({
 			type: "play-track",
-			trackId: tracksById.get(this.context.state.persisted.playingTrackId)
-				.next,
+			trackId: tracksById.get(this.context.state.persisted.playingTrackId).next,
 		});
 		emitter.requestPlay();
 	};
@@ -223,9 +218,7 @@ class Player extends React.PureComponent {
 	onError = () => {
 		const error = this.audioRef.current.error;
 		if (!error) return;
-		const track = tracksById.get(
-			this.context.state.persisted.playingTrackId
-		);
+		const track = tracksById.get(this.context.state.persisted.playingTrackId);
 		showErrorNotification(`Error playing ${production.title}.`);
 	};
 	play = () => {
@@ -255,7 +248,15 @@ class Player extends React.PureComponent {
 		if (this.animationFrame === null) this.update();
 	};
 	share = () => {
-		// shareProduction(this.context.state.persisted.playingProductionId);
+		const { playingTrackId } = this.context.state.persisted;
+
+		const track = tracksById.get(playingTrackId);
+		if (!track) return;
+
+		const production = productionsById.get(track.production);
+		if (!production) return;
+
+		shareProduction(production.id);
 	};
 	setVolume = (event) => {
 		this.setState({
@@ -358,15 +359,11 @@ class Player extends React.PureComponent {
 					<Left>
 						<Cover src={production.coverUrl128} />
 						<div>
-							<Title to={`/library/${production.id}`}>
-								{track.title}
-							</Title>
+							<Title to={`/library/${production.id}`}>{track.title}</Title>
 							<ExtraDetails>
 								{(track.title !== production.title && (
 									<div>
-										<ForegroundLink
-											to={`/library/${production.id}`}
-										>
+										<ForegroundLink to={`/library/${production.id}`}>
 											{production.title}
 										</ForegroundLink>
 									</div>
@@ -415,11 +412,7 @@ class Player extends React.PureComponent {
 							</TimeDisplay>
 						</TimeDisplayContainer>
 						<ShareButtonContainer>
-							<ShareButton
-								onClick={this.share}
-								colorStroke
-								nonScalingStroke
-							>
+							<ShareButton onClick={this.share} colorStroke nonScalingStroke>
 								<ShareSvg />
 							</ShareButton>
 						</ShareButtonContainer>

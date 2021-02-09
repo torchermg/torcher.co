@@ -16,7 +16,7 @@ export const showErrorNotification = (error) => {
 export const getGraphQLErrorMessage = (graphQLError) => {
 	const { graphQLErrors } = graphQLError;
 	if (graphQLErrors && graphQLErrors.length) {
-		return graphQLErrors.map(graphQLError => graphQLError.message).join("\n");
+		return graphQLErrors.map((graphQLError) => graphQLError.message).join("\n");
 	}
 	return graphQLError.message;
 };
@@ -27,11 +27,11 @@ export const showGraphQLErrorNotification = (graphQLError) => {
 
 export const shareProduction = async (productionId) => {
 	const production = productionsById.get(productionId);
-	const url = `${constants.ADDRESS}/production/${productionId}`;
+	const url = `${constants.ADDRESS}/library/${productionId}`;
 	try {
 		await navigator.share({
 			title: `Torcher — ${production.title}`,
-			url
+			url,
 		});
 	} catch {
 		try {
@@ -45,11 +45,17 @@ export const shareProduction = async (productionId) => {
 
 export const formatTime = (time) => {
 	const minutes = Math.floor(time / 60);
-	const seconds = Math.round(time % 60).toString().padStart(2, "0");
+	const seconds = Math.round(time % 60)
+		.toString()
+		.padStart(2, "0");
 	return `${minutes}:${seconds}`;
 };
 
-export const formatCurrency = (cents, longForm = false, allowTruncation = false) => {
+export const formatCurrency = (
+	cents,
+	longForm = false,
+	allowTruncation = false
+) => {
 	const dollars = cents / 100;
 	let amountString;
 	if (cents % 100 === 0 && allowTruncation) {
@@ -67,4 +73,4 @@ export const formatCurrency = (cents, longForm = false, allowTruncation = false)
 export const zeroPad = (number, maximum) => {
 	const digits = maximum.toString().length;
 	return String(number).padStart(digits, "0");
-}
+};

@@ -8,6 +8,7 @@ import { store, emitter } from "/store";
 import Footer from "/components/Footer";
 
 import SetAblazeSvg from "/images/hero-set-ablaze-text.svg";
+import balloonImage from "/images/balloon.png";
 
 const Container = styled.div``;
 
@@ -21,9 +22,25 @@ const HeroImage = styled.img`
 	display: block;
 	width: 100%;
 `;
-const HeroImageWide = styled(HeroImage)`
-`;
-const HeroImageTall = styled(HeroImage)`
+const HeroImageWide = styled(HeroImage)``;
+const HeroImageTall = styled(HeroImage)``;
+
+const BalloonOverlay = styled.img`
+	@keyframes float {
+		from {
+			transform: translateY(0);
+		}
+		to {
+			transform: translateY(8%);
+		}
+	}
+	position: fixed;
+	background-repeat: no-repeat;
+	height: 300px;
+	right: 1rem;
+	top: 100px;
+	z-index: 1000;
+	animation: float 2s ease-in-out alternate infinite;
 `;
 
 const HeroText = styled.div`
@@ -85,9 +102,13 @@ export default (props) => {
 	return (
 		<Container>
 			<Corset>
+				<BalloonOverlay src={balloonImage} />
 				<Hero>
 					<picture>
-						<source srcSet={constants.ASSETS.IMAGES.HERO_MIHAILO_WIDE} media={`(min-width: ${HERO_BREAKPOINT})`} />
+						<source
+							srcSet={constants.ASSETS.IMAGES.HERO_MIHAILO_WIDE}
+							media={`(min-width: ${HERO_BREAKPOINT})`}
+						/>
 						<HeroImage src={constants.ASSETS.IMAGES.HERO_MIHAILO_TALL} />
 					</picture>
 				</Hero>
@@ -96,9 +117,7 @@ export default (props) => {
 					<H2>Sample Packs</H2>
 					<ProductionGrid productionIds={["S2", "S1"]} />
 					<H2>Beats</H2>
-					<ProductionGrid
-						productionIds={["B1", "B2", "B3", "B4", "B5"]}
-					/>
+					<ProductionGrid productionIds={["B1", "B2", "B3", "B4", "B5"]} />
 				</Productions>
 			</Corset>
 		</Container>

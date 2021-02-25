@@ -316,12 +316,12 @@ const Checkout = ({ theme }) => {
 					<DropIn
 						options={{
 							authorization: process.env.BRAINTREE_TOKENIZATION_KEY,
-							paypal: {
-								amount: total / 100,
-								currency: "USD",
-								flow: "checkout",
-							},
-							// venmo: true,
+							// paypal: {
+							// 	amount: total / 100,
+							// 	currency: "USD",
+							// 	flow: "checkout",
+							// },
+							venmo: true,
 						}}
 						onInstance={(instance) => setInstance(instance)}
 					/>

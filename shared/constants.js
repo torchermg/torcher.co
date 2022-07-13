@@ -1,4 +1,4 @@
-const CDN = "https://torcher-public.nyc3.digitaloceanspaces.com";
+const CDN = "https://torcher.co/assets";
 // const CDN = "https://public.cdn.torcher.co";
 
 export default {

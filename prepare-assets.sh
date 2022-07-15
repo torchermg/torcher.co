@@ -118,7 +118,7 @@ prepare_image () {
 }
 
 prepare_image "$images/hero-mihailo-wide.png" 1024
-prepare_image "$images/hero-mihailo-tall.png" 1024
+# prepare_image "$images/hero-mihailo-tall.png" 1024
 
 # legal
 for docx in "$legal"/*.docx; do

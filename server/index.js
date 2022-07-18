@@ -18,24 +18,25 @@ const app = express();
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 const formatError = (e) => {
-	console.error(e);
-	if (
-		!(
-			e.originalError instanceof ApolloError ||
-			e.originalError instanceof UserInputError
-		)
-	) {
-		return new ApolloError("Internal server error");
-	}
-	return e;
+  console.error(e);
+  if (
+    !(
+      e.originalError instanceof ApolloError ||
+      e.originalError instanceof UserInputError
+    )
+  ) {
+    return new ApolloError("Internal server error");
+  }
+  return e;
 };
 
 const apollo = new ApolloServer({ cors: true, schema, formatError });
 app.use(apollo.getMiddleware());
 
 (async () => {
-	try {
-		await setup(process.env.SQLITE_PATH);
-		app.listen(PORT);
-	} catch {}
+  try {
+    await setup(process.env.SQLITE_PATH);
+    app.listen(PORT);
+    console.info(`Now listening on ${PORT}`);
+  } catch {}
 })();

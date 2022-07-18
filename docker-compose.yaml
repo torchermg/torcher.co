@@ -1,0 +1,23 @@
+volumes:
+    torcher:
+    caddy:
+
+services:
+    torcher:
+        build:
+            context: ./
+            dockerfile: torcher.dockerfile
+        env_file: ./.env
+        volumes:
+            - torcher:/var/lib/torcher
+        ports:
+            - 3030:3030
+    caddy:
+        build:
+            context: ./
+            dockerfile: caddy.dockerfile
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - caddy:/data

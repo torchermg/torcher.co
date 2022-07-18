@@ -18,5 +18,5 @@ upload: prepare-assets
 	s3cmd sync --acl-public -r assets/build/public/ s3://$(public)/
 	s3cmd sync -r assets/build/private/ s3://$(private)/
 
-deploy: upload
-	yarn run pm2 deploy ecosystem.config.cjs torcher update
+deploy: build upload
+	docker-compose up --build

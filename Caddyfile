@@ -1,0 +1,12 @@
+localhost {
+	handle_path /graphql {
+		rewrite * /graphql
+		reverse_proxy torcher:3030
+	}
+	handle {
+		root * /srv/torcher/build
+		encode gzip
+		try_files {path} /index.html
+		file_server
+	}
+}

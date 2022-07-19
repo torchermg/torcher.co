@@ -8,8 +8,8 @@ import {
 	ForegroundA,
 	ForegroundLink,
 } from "/components/common";
-import LogoSvg from "/images/logo.svg";
-import InstagramSvg from "/images/instagram.svg";
+import LogoSvg from "/svg/logo.svg";
+import InstagramSvg from "/svg/instagram.svg";
 import constants from "/shared/constants";
 
 const LogoContainer = styled(ForegroundA)``;

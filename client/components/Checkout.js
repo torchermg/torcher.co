@@ -10,7 +10,8 @@ import React, {
 import { Redirect } from "react-router-dom";
 import gql from "graphql-tag";
 import styled, { withTheme } from "styled-components";
-import importedComponent from "react-imported-component";
+import DropIn from "braintree-web-drop-in-react"
+// import importedComponent from "react-imported-component";
 
 import {
 	Corset,
@@ -26,7 +27,7 @@ import {
 	producerLinks,
 	Loading,
 } from "/components/common";
-import { checkName, checkEmail, checkCharityId } from "/shared/validation";
+import { checkName, checkEmail } from "/shared/validation";
 import { licensesById } from "/shared/licenses";
 import { productionsById } from "/shared/productions";
 import {
@@ -118,7 +119,7 @@ const checkAgreedToLicenses = (agreed) => {
 	return "Please read and agree to the License Agreement(s).";
 };
 
-const DropIn = importedComponent(() => import("braintree-web-drop-in-react"));
+// const DropIn = importedComponent(() => import("braintree-web-drop-in-react"));
 
 const Checkout = ({ theme }) => {
 	const { state, dispatch } = useContext(store);

@@ -11,7 +11,7 @@ import {
 	producerLinks,
 	tagLinks
 } from "/components/common";
-import PlaySvg from "/images/play.svg";
+import PlaySvg from "/svg/play.svg";
 import { productionsById } from "/shared/productions";
 
 const ANIMATION_DURATION = "0.2s";

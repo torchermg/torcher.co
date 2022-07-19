@@ -13,10 +13,10 @@ import {
 	ForegroundButton,
 	Corset,
 } from "/components/common";
-import FlameSvg from "/images/flame.svg";
-import TorcherSvg from "/images/torcher.svg";
-import BeatsSvg from "/images/beats.svg";
-import StemsSvg from "/images/stems.svg";
+import FlameSvg from "/svg/flame.svg";
+import TorcherSvg from "/svg/torcher.svg";
+import BeatsSvg from "/svg/beats.svg";
+import StemsSvg from "/svg/stems.svg";
 import { store } from "/store";
 
 const smallBreakpoint = "400px";

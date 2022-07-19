@@ -3,11 +3,11 @@ import styled from "styled-components";
 
 import constants from "/shared/constants";
 import ProductionGrid from "/components/ProductionGrid";
-import { flameSize, H1, H2, Corset, LazyImage } from "/components/common";
+import { H1, H2, Corset } from "/components/common";
 import { store, emitter } from "/store";
 import Footer from "/components/Footer";
 
-import SetAblazeSvg from "/images/hero-set-ablaze-text.svg";
+import SetAblazeSvg from "/svg/hero-set-ablaze-text.svg";
 
 const Container = styled.div``;
 
@@ -30,7 +30,6 @@ const HeroText = styled.div`
 	// position: absolute;
 	// display: flex;
 	// flex-direction: column;
-	// padding-top: ${flameSize};
 	// bottom: 0;
 	// right: 0;
 `;

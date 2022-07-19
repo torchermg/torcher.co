@@ -6,7 +6,10 @@ public = $(DIGITALOCEAN_PUBLIC_BUCKET)
 private = $(DIGITALOCEAN_PRIVATE_BUCKET)
 
 build: yarn
-	yarn build
+	node esbuild.config.js
+
+serve: yarn
+	node esbuild.config.js serve
 
 yarn:
 	yarn

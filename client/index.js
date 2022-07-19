@@ -1,10 +1,8 @@
-import { ApolloClient } from "apollo-client";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { HttpLink } from "apollo-link-http";
+import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
 import { ApolloProvider } from "@apollo/react-hooks";
 import React from "react";
 import ReactDOM from "react-dom";
-import Notifications from "react-notify-toast";
+// import Notifications from "react-notify-toast";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { tint, darken, lighten } from "polished";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -14,9 +12,9 @@ import roobert from "/fonts/Roobert-Bold.woff2";
 import publicSansRegular from "/fonts/PublicSans-Regular.woff2";
 import publicSansMedium from "/fonts/PublicSans-Medium.woff2";
 import publicSansBold from "/fonts/PublicSans-Bold.woff2";
-import Torcher from "/pages/Torcher";
-import { StateProvider } from "/store";
-import typeDefs from "/shared/typeDefs";
+import Torcher from "/pages/Torcher.js";
+import { StateProvider } from "/store.js";
+import typeDefs from "/shared/typeDefs.js";
 
 // const whyDidYouRender = require("@welldone-software/why-did-you-render");
 // whyDidYouRender(React, {});
@@ -104,7 +102,7 @@ const App = (props) => {
 				<StateProvider>
 					<ThemeProvider theme={theme}>
 						<Router>
-							<Notifications options={notificationOptions} />
+							{/* <Notifications options={notificationOptions} /> */}
 							<ScrollContext>
 								<Torcher />
 							</ScrollContext>

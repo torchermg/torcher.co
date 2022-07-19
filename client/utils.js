@@ -1,11 +1,17 @@
-import { notify } from "react-notify-toast";
+// import { notify } from "react-notify-toast";
+import toast from "react-hot-toast";
 
 import constants from "/shared/constants";
 import { productionsById } from "/shared/productions";
 
 export const showNotification = (message, type = "success") => {
-	notify.hide();
-	notify.show(message, type);
+	if (type == "error") {
+		toast.error(message);
+	} else {
+		toast(message);
+	}
+	// notify.hide();
+	// notify.show(message, type);
 };
 
 export const showErrorNotification = (error) => {

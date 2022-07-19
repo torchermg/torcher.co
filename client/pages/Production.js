@@ -30,11 +30,11 @@ import {
 import Icon from "@mdi/react";
 import { mdiPlus } from "@mdi/js";
 
-import StemsSvg from "/images/stems.svg";
-import DownloadSvg from "/images/download.svg";
-import PlaySvg from "/images/play.svg";
-import ShareSvg from "/images/share.svg";
-import PlusSvg from "/images/plus.svg";
+import StemsSvg from "/svg/stems.svg";
+import DownloadSvg from "/svg/download.svg";
+import PlaySvg from "/svg/play.svg";
+import ShareSvg from "/svg/share.svg";
+import PlusSvg from "/svg/plus.svg";
 import productions, { productionsById } from "/shared/productions";
 import { tracksById } from "/shared/tracks";
 import { licensesById } from "/shared/licenses";

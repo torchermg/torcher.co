@@ -14,7 +14,7 @@ import {
 	ForegroundLink,
 } from "/components/common";
 import NotFound from "/pages/NotFound";
-import DownloadSvg from "/images/download.svg";
+import DownloadSvg from "/svg/download.svg";
 import { showGraphQLErrorNotification } from "/utils";
 import { productionsById } from "/shared/productions";
 import { licensesById } from "/shared/licenses";

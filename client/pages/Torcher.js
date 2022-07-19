@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ScrollContainer } from "react-router-scroll-4";
 import _ from "lodash";
 import { Helmet } from "react-helmet";
+import { Toaster } from "react-hot-toast";
 
 import constants from "/shared/constants";
 import Header from "/components/Header";
@@ -70,6 +71,7 @@ export default (props) => {
 					</filter>
 				</defs>
 			</SvgDefs>
+			<Toaster />
 			<ScrollContainer scrollKey={"torcher"}>
 				<Scroll>
 					<div>

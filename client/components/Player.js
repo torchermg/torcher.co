@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { css, withTheme } from "styled-components";
-import { notify } from "react-notify-toast";
+// import { notify } from "react-notify-toast";
 import _ from "lodash";
 
 import { store, emitter } from "/store";
@@ -14,13 +14,13 @@ import {
 	producerLinks,
 	Loading,
 } from "/components/common";
-import PlaySvg from "/images/play.svg";
-import PauseSvg from "/images/pause.svg";
-import PreviousSvg from "/images/previous.svg";
-import NextSvg from "/images/next.svg";
-import VolumeNotchSvg from "/images/volume-notch.svg";
-import ShareSvg from "/images/share.svg";
-import DownloadSvg from "/images/download.svg";
+import PlaySvg from "/svg/play.svg";
+import PauseSvg from "/svg/pause.svg";
+import PreviousSvg from "/svg/previous.svg";
+import NextSvg from "/svg/next.svg";
+import VolumeNotchSvg from "/svg/volume-notch.svg";
+import ShareSvg from "/svg/share.svg";
+import DownloadSvg from "/svg/download.svg";
 
 import tracks, { tracksById } from "/shared/tracks";
 import productions, { productionsById } from "/shared/productions";

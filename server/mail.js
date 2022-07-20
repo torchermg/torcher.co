@@ -17,7 +17,7 @@ export const sendReceipt = async (order) => {
 
 	const subject = "Your Torcher order receipt";
 	const html = await ejs.renderFile(
-		path.join(path.resolve(), "templates/receipt.ejs"),
+		path.join(path.resolve(), "server/templates/receipt.ejs"),
 		{ order, constants }
 	);
 

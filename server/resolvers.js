@@ -225,8 +225,8 @@ export default {
 
 			try {
 				await sendReceipt(order);
-			} catch {
-				console.error(`failed to send receipt to ${email}!`);
+			} catch (e) {
+				console.error(`failed to send receipt to ${email}!`, e);
 			}
 
 			console.log(

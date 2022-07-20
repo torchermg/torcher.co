@@ -22,14 +22,17 @@ const formatError = (e) => {
   ) {
     return new ApolloError("Internal server error");
   }
+  console.error(e);
   return e;
 };
 
-const apollo = new ApolloServer({ typeDefs, resolvers, formatError, cors: true });
-app.use(apollo.getMiddleware());
+const apollo = new ApolloServer({ typeDefs, resolvers, formatError, cors: true, cache: "bounded" });
 
 (async () => {
   try {
+	await apollo.start();
+	app.use(apollo.getMiddleware());
+
     await setup(process.env.SQLITE_PATH);
     app.listen(PORT);
     console.info(`Now listening on ${PORT}`);

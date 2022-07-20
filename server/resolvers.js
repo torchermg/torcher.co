@@ -17,6 +17,13 @@ import { byCode as promosByCode, isPromoActive } from "./promos.js";
 
 const { UserInputError, ApolloError } = ApolloServer;
 
+export class GenericError extends ApolloError {
+  constructor(message) {
+	  super(message, "GENERIC");
+	  Object.defineProperty(this, "name", { value: "GenericError" });
+  }
+}
+
 export default {
 	Query: {
 		ping: () => "pong",
@@ -27,7 +34,7 @@ export default {
 				throw new UserInputError("Invalid promo code!");
 			}
 			if (!isPromoActive(promo)) {
-				throw new ApolloError("That promo is no longer active!");
+				throw new GenericError("That promo is no longer active!");
 			}
 			return promo.discountRate;
 		},
@@ -149,7 +156,7 @@ export default {
 				)
 			) {
 				console.error({ btResponse });
-				throw new ApolloError(
+				throw new GenericError(
 					`Transaction failed. Please check your payment details and try again.`
 				);
 			}

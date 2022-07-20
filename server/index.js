@@ -14,15 +14,10 @@ const PORT = process.env.GRAPHQL_PORT || 3030;
 const app = express();
 
 const formatError = (e) => {
-  if (
-    !(
-      e.originalError.name == "ApolloError" ||
-      e.originalError.name == "UserInputError"
-    )
-  ) {
+  console.error(e);
+  if (!e.extensions || e.extensions.code == "INTERNAL_SERVER_ERROR") {
     return new ApolloError("Internal server error");
   }
-  console.error(e);
   return e;
 };
 

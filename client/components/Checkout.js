@@ -8,7 +8,7 @@ import React, {
 	useEffect,
 } from "react";
 import { Redirect } from "react-router-dom";
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 import styled, { withTheme } from "styled-components";
 import DropIn from "braintree-web-drop-in-react"
 // import importedComponent from "react-imported-component";

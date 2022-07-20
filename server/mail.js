@@ -1,13 +1,15 @@
-import Mailgun from "mailgun-js";
+import formData from "form-data";
+import Mailgun from "mailgun.js";
 import ejs from "ejs";
 import path from "path";
 
 import constants from "./shared/constants.js";
 import { productionsById } from "./shared/productions.js";
 
-const mg = Mailgun({
-	apiKey: process.env.MAILGUN_API_KEY,
-	domain: process.env.MAILGUN_DOMAIN,
+const mailgun = new Mailgun(formData);
+const mg = mailgun.client({
+	username: "api",
+	key: process.env.MAILGUN_API_KEY,
 });
 
 export const sendReceipt = async (order) => {
@@ -19,7 +21,7 @@ export const sendReceipt = async (order) => {
 		{ order, constants }
 	);
 
-	const result = await mg.messages().send({
+	const result = await mg.messages.create(process.env.MAILGUN_DOMAIN, {
 		from: "Torcher <mail@torcher.co>",
 		to: order.email,
 		subject,

@@ -10,8 +10,6 @@ export const showNotification = (message, type = "success") => {
 	} else {
 		toast(message);
 	}
-	// notify.hide();
-	// notify.show(message, type);
 };
 
 export const showErrorNotification = (error) => {

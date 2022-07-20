@@ -1,4 +1,4 @@
-localhost {
+{$CADDY_HOST} {
 	handle_path /graphql {
 		rewrite * /graphql
 		reverse_proxy torcher:3030

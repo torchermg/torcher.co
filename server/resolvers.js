@@ -17,12 +17,6 @@ import { byCode as promosByCode, isPromoActive } from "./promos.js";
 
 const { UserInputError, ApolloError } = ApolloServer;
 
-class NotFoundError extends ApolloError {
-	constructor(message) {
-		super(message, "NOT_FOUND");
-	}
-}
-
 export default {
 	Query: {
 		ping: () => "pong",
@@ -42,7 +36,7 @@ export default {
 				"SELECT created_at, email, discount, subtotal, total FROM torcher_order WHERE id = ?",
 				orderId
 			);
-			if (!order) throw new NotFoundError("Order not found!");
+			if (!order) throw new UserInputError("Order not found!");
 			const orderItems = await db.all(
 				"SELECT production_id, license_id, price FROM torcher_order_item WHERE order_id = ?",
 				orderId

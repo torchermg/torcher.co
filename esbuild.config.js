@@ -4,10 +4,6 @@ import svgrPlugin from "esbuild-plugin-svgr";
 import esbuild from "esbuild";
 import copyStaticFiles from "esbuild-copy-static-files";
 
-// const path = require("path");
-// const glob = require("glob");
-// const svgrPlugin = require('esbuild-plugin-svgr');
-
 // Resolve paths starting with / as relative to client/
 const rootdirPlugin = function(rootdir) {
     return {
@@ -55,7 +51,7 @@ const buildOptions = {
 };
 
 if (process.argv[2] == "serve") {
-	esbuild.serve({port: 3030, servedir: "build"}, buildOptions);
+	esbuild.serve({port: 3031, servedir: "build"}, buildOptions);
 } else {
 	esbuild.build(buildOptions);
 }

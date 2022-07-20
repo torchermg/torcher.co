@@ -2,11 +2,11 @@ import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
 import { ApolloProvider } from "@apollo/react-hooks";
 import React from "react";
 import ReactDOM from "react-dom";
-// import Notifications from "react-notify-toast";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { tint, darken, lighten } from "polished";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ScrollContext } from "react-router-scroll-4";
+import { Toaster } from "react-hot-toast";
 
 import roobert from "/fonts/Roobert-Bold.woff2";
 import publicSansRegular from "/fonts/PublicSans-Regular.woff2";
@@ -102,7 +102,7 @@ const App = (props) => {
 				<StateProvider>
 					<ThemeProvider theme={theme}>
 						<Router>
-							{/* <Notifications options={notificationOptions} /> */}
+							<Toaster />
 							<ScrollContext>
 								<Torcher />
 							</ScrollContext>

@@ -1,13 +1,13 @@
 import AWS from "aws-sdk";
 
 const s3 = new AWS.S3({
-	accessKeyId: process.env.DIGITALOCEAN_ACCESS_KEY_ID,
-	secretAccessKey: process.env.DIGITALOCEAN_SECRET_ACCESS_KEY,
-	endpoint: process.env.DIGITALOCEAN_ENDPOINT,
-	region: process.env.DIGITALOCEAN_REGION,
+	accessKeyId: process.env.S3_ACCESS_KEY_ID,
+	secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+	endpoint: process.env.S3_ENDPOINT,
+	// region: process.env.S3_REGION,
 });
 
-const bucket = process.env.DIGITALOCEAN_PRIVATE_BUCKET;
+const bucket = process.env.S3_PRIVATE_BUCKET;
 
 export const getSignedUrl = (key, filename) => {
 	const sanitize = (filename) => {

@@ -1,4 +1,4 @@
-const CDN = "https://public.cdn.torcher.co";
+const CDN = `${process.env.CDN}`;
 
 export default {
   CDN,

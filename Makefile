@@ -2,8 +2,8 @@
 export
 
 torture-palace = torcher.co
-public = $(DIGITALOCEAN_PUBLIC_BUCKET)
-private = $(DIGITALOCEAN_PRIVATE_BUCKET)
+public = $(S3_PUBLIC_BUCKET)
+private = $(S3_PRIVATE_BUCKET)
 
 build: yarn
 	node esbuild.config.js

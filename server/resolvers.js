@@ -92,6 +92,9 @@ export default {
 	},
 	Mutation: {
 		makeOrder: async (_, { request }) => {
+			throw new GenericError(
+				`Our checkout is currently unavailable. Please contact mail@torcher.co if you are interested in licensing one of our productions.`
+			);
 			const {
 				nonce,
 				cartItems,

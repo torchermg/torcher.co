@@ -24,6 +24,7 @@ import {
 	HollowButton,
 	Select,
 	ForegroundLink,
+	ForegroundA,
 	producerLinks,
 	Loading,
 } from "/components/common";
@@ -236,7 +237,8 @@ const Checkout = ({ theme }) => {
 	return (
 		<div>
 			<SectionHeader>Checkout</SectionHeader>
-			<form onChange={onChange} onSubmit={buy}>
+			<P>Our checkout is currently unavailable. Please contact <ForegroundA href="mailto:mail@torcher.co">mail@torcher.co</ForegroundA> if you are interested in licensing one of our productions.</P>
+			{/*<form onChange={onChange} onSubmit={buy}>
 				<P>
 					<TextInput
 						name="name"
@@ -336,7 +338,7 @@ const Checkout = ({ theme }) => {
 						)}
 					</SubmitButton>
 				</P>
-			</form>
+			</form>*/}
 		</div>
 	);
 };

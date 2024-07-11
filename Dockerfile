@@ -1,10 +1,11 @@
-FROM node:16-alpine
+FROM node:20-alpine
 
 WORKDIR /srv/torcher
 
 COPY .env .
 COPY Makefile .
 COPY package.json .
+COPY ./build build
 COPY ./shared shared
 COPY ./server server
 

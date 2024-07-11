@@ -47,9 +47,8 @@
 	"script-shell": "/usr/bin/env bash",
 	"scripts": {
 		"start-server": "node -r dotenv/config server/index.js",
-		"start-client": "parcel client/index.html --out-dir build",
 		"clean": "rm -rf build && rm -rf .cache",
-		"build": "parcel build client/index.html --out-dir build"
+		"build": "node -r dotenv/config esbuild.config.js"
 	},
 	"devDependencies": {
 		"husky": ">=4",

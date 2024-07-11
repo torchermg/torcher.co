@@ -25,11 +25,16 @@ const apollo = new ApolloServer({ typeDefs, resolvers, formatError, cors: true, 
 
 (async () => {
   try {
-	await apollo.start();
-	app.use(apollo.getMiddleware());
-
-    await setup(process.env.SQLITE_PATH);
+    await apollo.start();
+    app.use(apollo.getMiddleware());
+    app.use(express.static(path.resolve("build")));
+    app.get("/", (_, res) => {
+      res.sendFile(path.resolve("build/index.html"));
+    });
+    // await setup(process.env.SQLITE_PATH);
     app.listen(PORT);
     console.info(`Now listening on ${PORT}`);
-  } catch {}
+  } catch (e) {
+    console.error(e);
+  }
 })();
